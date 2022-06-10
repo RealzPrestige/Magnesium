@@ -1,0 +1,36 @@
+{
+  "schemaVersion": 1,
+  "id": "magnesium",
+  "version": "1.0",
+
+  "name": "Magnesium",
+  "description": "Magnesium (Vanilla Client) for 1.18.2 fabric by zPrestige_",
+  "authors": [
+    "zPrestige_"
+  ],
+  "contact": {
+    "sources": "! zPrestige_#1514"
+  },
+
+  "license": "CC0-1.0",
+
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "dev.zprestige.magnesium.Main"
+    ]
+  },
+  "mixins": [
+    "magnesium.mixins.json"
+  ],
+
+  "depends": {
+    "fabricloader": ">=0.13.3",
+    "fabric": "*",
+    "minecraft": "~1.18.2",
+    "java": ">=17"
+  },
+  "suggests": {
+    "another-mod": "*"
+  }
+}
