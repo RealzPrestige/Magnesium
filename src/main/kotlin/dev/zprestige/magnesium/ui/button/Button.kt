@@ -5,7 +5,12 @@ import dev.zprestige.magnesium.util.RenderUtil
 import net.minecraft.client.util.math.MatrixStack
 import java.awt.Color
 
-class Button(private val text: String, private val runnable: Runnable) {
+class Button(val text: String, private val runnable: Runnable, var selected: Boolean) {
+    var color: Color = if (selected) {
+        Color.WHITE
+    } else {
+        Color(150, 150, 150, 255)
+    }
     var x: Float = 0.0f
     var y: Float = 0.0f
     var width: Float = 0.0f
@@ -29,6 +34,13 @@ class Button(private val text: String, private val runnable: Runnable) {
                 scale -= 0.01f
             }
         }
+        val white = hovering || selected
+
+        color = if (white) {
+            Color(convertGrayToWhite(color.red), convertGrayToWhite(color.green), convertGrayToWhite(color.blue))
+        } else {
+            Color(convertWhiteToGray(color.red), convertWhiteToGray(color.green), convertWhiteToGray(color.blue))
+        }
 
 
         /** render box */
@@ -46,9 +58,9 @@ class Button(private val text: String, private val runnable: Runnable) {
         )
         RenderUtil.fillGradient(matrices,
             x - 4,
-            y- 0.5f,
+            y - 0.5f,
             x - 0.5f,
-            y + height- 0.5f,
+            y + height - 0.5f,
             Color(0, 0, 0, 0),
             Color(0, 0, 0, 30),
             true
@@ -59,7 +71,7 @@ class Button(private val text: String, private val runnable: Runnable) {
             text,
             (x + (width / 2.0f)) - (Main.fontManager.getStringWidth(text) / 2.0f),
             (y + (height / 2.0f)) - (Main.fontManager.getHeight() / 2.0f),
-            Color.WHITE
+            color
         )
     }
 
@@ -68,5 +80,17 @@ class Button(private val text: String, private val runnable: Runnable) {
         this.y = y
         this.width = width
         this.height = height
+    }
+
+    private fun convertWhiteToGray(input: Int): Int {
+        return if (input > 150) {
+            input - 2
+        } else input
+    }
+
+    private fun convertGrayToWhite(input: Int): Int {
+        return if (input < 254) {
+            input + 2
+        } else input
     }
 }

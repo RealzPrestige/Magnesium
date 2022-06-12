@@ -2,7 +2,7 @@
 A fabric 1.18.2 mod aimed to improve player experience
 
 ## Gradle:
-- When importing project click `Load gradle project`
+- When importing project click `Load gradle script`
 - Run the client in a developer environment `fabric/runClient`
 - Build the client into a usable jar file `build/build`
 

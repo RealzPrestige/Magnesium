@@ -2,16 +2,14 @@ package dev.zprestige.magnesium.manager
 
 import dev.zprestige.magnesium.Main
 import dev.zprestige.magnesium.features.Feature
-import dev.zprestige.magnesium.features.impl.Bean
 import dev.zprestige.magnesium.features.impl.ClickGui
-import dev.zprestige.magnesium.features.impl.HIhi
-import dev.zprestige.magnesium.features.impl.Joe
+import dev.zprestige.magnesium.features.impl.Fps
 
 class FeatureManager {
     val features = ArrayList<Feature>()
 
     init {
-        register(arrayOf(ClickGui(), Bean(), HIhi(), Joe()))
+        register(arrayOf(ClickGui(), Fps()))
     }
 
     private fun register(features: Array<Feature>) {

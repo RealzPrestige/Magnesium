@@ -2,4 +2,10 @@ package dev.zprestige.magnesium.settings.impl
 
 import dev.zprestige.magnesium.settings.Setting
 
-class SliderInt(name: String, value: Int, var min: Int, var max: Int) : Setting<Int>(name, value)
+class SliderInt(name: String, value: Int, var min: Int, var max: Int) : Setting<Int>(name, value) {
+
+    fun tab(tab: String): SliderInt {
+        this.tab = tab
+        return this
+    }
+}

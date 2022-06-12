@@ -4,6 +4,7 @@ import dev.zprestige.magnesium.event.eventbus.EventBus
 import dev.zprestige.magnesium.manager.BlurManager
 import dev.zprestige.magnesium.manager.FeatureManager
 import dev.zprestige.magnesium.manager.FontManager
+import dev.zprestige.magnesium.manager.HudManager
 import net.fabricmc.api.ModInitializer
 import net.minecraft.client.MinecraftClient
 import org.slf4j.Logger
@@ -26,5 +27,6 @@ class Main : ModInitializer {
         val blurManager: BlurManager = BlurManager()
         val featureManager: FeatureManager = FeatureManager()
         val fontManager: FontManager = FontManager()
+        val hudManager: HudManager = HudManager()
     }
 }

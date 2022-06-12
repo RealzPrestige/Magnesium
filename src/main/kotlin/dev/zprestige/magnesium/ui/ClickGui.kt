@@ -10,7 +10,6 @@ import dev.zprestige.magnesium.ui.selected.impl.OtherMods
 import dev.zprestige.magnesium.ui.selected.impl.Profiles
 import dev.zprestige.magnesium.ui.sidebar.SideTab
 import dev.zprestige.magnesium.util.RenderUtil
-import net.minecraft.client.Mouse
 import net.minecraft.client.gui.screen.Screen
 import net.minecraft.client.util.math.MatrixStack
 import net.minecraft.text.Text
@@ -30,12 +29,10 @@ class ClickGui : Screen(Text.of("ClickGui")) {
     private val profiles: SideTab = SideTab("Profiles")
     private val featureSelected: Selected = Features()
     private val otherModsSelected: Selected = OtherMods()
-    private val hudSelected: Selected = Hud()
     private val profilesSelected: Selected = Profiles()
-    private var searching: String = ""
     private var isSearching: Boolean = false
     private var prevTime: Long = 0L
-    var prevSidebar = sidebar
+    private var prevSidebar = sidebar
 
     init {
         sideTabs.addAll(arrayOf(
@@ -47,10 +44,10 @@ class ClickGui : Screen(Text.of("ClickGui")) {
         )
         sidebar = features
         selected = featureSelected
-        Main.eventBus.subscribe(this)
     }
 
     companion object {
+        var searching: String = ""
         var sidebar: SideTab? = null
         var selected: Selected? = null
     }
@@ -289,11 +286,12 @@ class ClickGui : Screen(Text.of("ClickGui")) {
         if (sidebar != prevSidebar) {
             /** set selected according to new sidebar value */
             when (sidebar?.name) {
-                "Features" -> selected = featureSelected
+                "Features" -> { selected = featureSelected }
                 "Other Mods" -> selected = otherModsSelected
-                "Hud" -> selected = hudSelected
+                "Hud" -> mc.setScreen(Hud())
                 "Profiles" -> selected = profilesSelected
             }
+            selected!!.addY = 5.0f
         }
 
         /** setup before drawing selected */
@@ -301,7 +299,7 @@ class ClickGui : Screen(Text.of("ClickGui")) {
 
         /** draw selected component */
         selected?.renderButtons(matrices, mouseX, mouseY, clickFrame)
-        selected?.renderInner(matrices, mouseX, mouseY, clickFrame)
+        selected?.renderInner(matrices, mouseX, mouseY, clickFrame, releaseFrame)
 
         /** save previous sidebar value */
         prevSidebar = sidebar
@@ -312,29 +310,42 @@ class ClickGui : Screen(Text.of("ClickGui")) {
         char = null
     }
 
+    /** Mouse button is pressed */
     override fun mouseClicked(mouseX: Double, mouseY: Double, button: Int): Boolean {
         clickFrame = true
         return super.mouseClicked(mouseX, mouseY, button)
     }
 
+    /** Mouse button is released */
     override fun mouseReleased(mouseX: Double, mouseY: Double, button: Int): Boolean {
         releaseFrame = true
         return super.mouseReleased(mouseX, mouseY, button)
     }
 
+    /** Key is pressed it gives the keycode */
     override fun keyPressed(keyCode: Int, scanCode: Int, modifiers: Int): Boolean {
         if (keyCode == 259 && isSearching && searching.isNotEmpty()) {
             searching = searching.substring(0, searching.length - 1)
+        }
+        if (keyCode == 257){
+            isSearching = false
         }
         typingFrame = true
         return super.keyPressed(keyCode, scanCode, modifiers)
     }
 
+    /** When a character is pressed (Fabric doesn't use Keyboard, so we have two separate functions) */
     override fun charTyped(chr: Char, modifiers: Int): Boolean {
         if (chr.code != 167 && chr >= ' ' && chr.code != 127) {
             char = chr
         }
+        selected!!.charTyped(chr)
         return super.charTyped(chr, modifiers)
+    }
+
+    override fun mouseScrolled(mouseX: Double, mouseY: Double, amount: Double): Boolean {
+        selected!!.mouseScrolled(mouseX, mouseY, amount)
+        return super.mouseScrolled(mouseX, mouseY, amount)
     }
 
     /** override the default should pause to false */

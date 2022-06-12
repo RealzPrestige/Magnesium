@@ -9,7 +9,7 @@ import java.awt.Color
 import java.util.*
 
 class SideTab(val name: String) {
-    private val icon: Identifier = Identifier("magnesium", "icons/${name.lowercase(Locale.getDefault()).split(" ")[0]}.png")
+    private val icon: Identifier = Identifier("magnesium", "icons/${name.lowercase().split(" ")[0]}.png")
     var x: Float = 0.0f
     var y: Float = 0.0f
     var width: Float = 0.0f

@@ -1,7 +1,6 @@
 package dev.zprestige.magnesium.util
 
 import com.mojang.blaze3d.systems.RenderSystem
-import dev.zprestige.magnesium.Main
 import net.minecraft.client.gui.DrawableHelper
 import net.minecraft.client.render.*
 import net.minecraft.client.util.math.MatrixStack
@@ -75,6 +74,70 @@ class RenderUtil {
                 builder.vertex(matrix, startX, endY, 0.0f).color(k, l, m, j).next()
                 builder.vertex(matrix, endX, endY, 0.0f).color(k, l, m, j).next()
             }
+        }
+
+        fun fillGradient(matrices: MatrixStack, startX: Float, startY: Float, endX: Float, endY: Float, colorOne: Color, colorTwo: Color, colorThree: Color, colorFour: Color) {
+            fillGradient(matrices,
+                startX,
+                startY,
+                endX,
+                endY,
+                colorOne.rgb,
+                colorTwo.rgb,
+                colorThree.rgb,
+                colorFour.rgb
+            )
+        }
+
+        private fun fillGradient(matrices: MatrixStack, startX: Float, startY: Float, endX: Float, endY: Float, colorOne: Int, colorTwo: Int, colorThree: Int, colorFour: Int) {
+            RenderSystem.disableTexture()
+            RenderSystem.enableBlend()
+            RenderSystem.defaultBlendFunc()
+            RenderSystem.setShader { GameRenderer.getPositionColorShader() }
+            val tessellator = Tessellator.getInstance()
+            val bufferBuilder = tessellator.buffer
+            bufferBuilder.begin(VertexFormat.DrawMode.QUADS, VertexFormats.POSITION_COLOR)
+            fillGradient(matrices.peek().positionMatrix,
+                bufferBuilder,
+                startX,
+                startY,
+                endX,
+                endY,
+                colorOne,
+                colorTwo,
+                colorThree,
+                colorFour
+            )
+            tessellator.draw()
+            RenderSystem.disableBlend()
+            RenderSystem.enableTexture()
+        }
+
+        private fun fillGradient(matrix: Matrix4f, builder: BufferBuilder, x: Float, y: Float, width: Float, height: Float, colorOne: Int, colorTwo: Int, colorThree: Int, colorFour: Int) {
+            val f = (colorOne shr 24 and 255).toFloat() / 255.0f
+            val g = (colorOne shr 16 and 255).toFloat() / 255.0f
+            val h = (colorOne shr 8 and 255).toFloat() / 255.0f
+            val i = (colorOne and 255).toFloat() / 255.0f
+
+            val j = (colorTwo shr 24 and 255).toFloat() / 255.0f
+            val k = (colorTwo shr 16 and 255).toFloat() / 255.0f
+            val l = (colorTwo shr 8 and 255).toFloat() / 255.0f
+            val m = (colorTwo and 255).toFloat() / 255.0f
+
+            val n = (colorThree shr 24).toFloat() / 255.0f
+            val o = (colorThree shr 16).toFloat() / 255.0f
+            val p = (colorThree shr 8).toFloat() / 255.0f
+            val q = (colorThree and 255).toFloat() / 255.0f
+
+            val r = (colorFour shr 24).toFloat() / 255.0f
+            val s = (colorFour shr 16).toFloat() / 255.0f
+            val t = (colorFour shr 8).toFloat() / 255.0f
+            val u = (colorFour and 255).toFloat() / 255.0f
+
+            builder.vertex(matrix, width, y, 0.0f).color(k, l, m, j).next()
+            builder.vertex(matrix, x, y, 0.0f).color(g, h, i, f).next()
+            builder.vertex(matrix, x, height, 0.0f).color(o, p, q, n).next()
+            builder.vertex(matrix, width, height, 0.0f).color(s, t, u, r).next()
         }
 
         fun drawTexture(matrices: MatrixStack, identifier: Identifier, x: Int, y: Int, z: Int, u: Float, v: Float, width: Int, height: Int, textureWidth: Int, textureHeight: Int) {
