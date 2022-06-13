@@ -14,7 +14,9 @@ class ClickGui : Feature("ClickGui", "Displays the Magnesium client's clickgui")
     }
 
     override fun onEnable() {
-        mc.setScreen(dev.zprestige.magnesium.ui.ClickGui())
+        if (nullCheck()) {
+            mc.setScreen(dev.zprestige.magnesium.ui.ClickGui())
+        }
     }
 
     override fun onDisable() {

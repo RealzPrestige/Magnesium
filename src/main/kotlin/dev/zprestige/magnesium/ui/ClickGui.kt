@@ -7,7 +7,6 @@ import dev.zprestige.magnesium.ui.selected.Selected
 import dev.zprestige.magnesium.ui.selected.impl.Features
 import dev.zprestige.magnesium.ui.selected.impl.Hud
 import dev.zprestige.magnesium.ui.selected.impl.OtherMods
-import dev.zprestige.magnesium.ui.selected.impl.Profiles
 import dev.zprestige.magnesium.ui.sidebar.SideTab
 import dev.zprestige.magnesium.util.RenderUtil
 import net.minecraft.client.gui.screen.Screen
@@ -29,7 +28,6 @@ class ClickGui : Screen(Text.of("ClickGui")) {
     private val profiles: SideTab = SideTab("Profiles")
     private val featureSelected: Selected = Features()
     private val otherModsSelected: Selected = OtherMods()
-    private val profilesSelected: Selected = Profiles()
     private var isSearching: Boolean = false
     private var prevTime: Long = 0L
     private var prevSidebar = sidebar
@@ -289,7 +287,6 @@ class ClickGui : Screen(Text.of("ClickGui")) {
                 "Features" -> { selected = featureSelected }
                 "Other Mods" -> selected = otherModsSelected
                 "Hud" -> mc.setScreen(Hud())
-                "Profiles" -> selected = profilesSelected
             }
             selected!!.addY = 5.0f
         }

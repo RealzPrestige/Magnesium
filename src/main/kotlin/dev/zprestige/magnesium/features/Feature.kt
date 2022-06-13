@@ -33,6 +33,10 @@ open class Feature(var name: String, var description: String) {
         enabled.value = false
     }
 
+    fun nullCheck(): Boolean {
+        return mc.world != null && mc.player != null
+    }
+
     fun toggle() = if (enabled.value) disable() else enable()
 
     fun inscribe(name: String, value: Color): ColorBox {

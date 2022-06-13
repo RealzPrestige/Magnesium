@@ -1,10 +1,7 @@
 package dev.zprestige.magnesium
 
 import dev.zprestige.magnesium.event.eventbus.EventBus
-import dev.zprestige.magnesium.manager.BlurManager
-import dev.zprestige.magnesium.manager.FeatureManager
-import dev.zprestige.magnesium.manager.FontManager
-import dev.zprestige.magnesium.manager.HudManager
+import dev.zprestige.magnesium.manager.*
 import net.fabricmc.api.ModInitializer
 import net.minecraft.client.MinecraftClient
 import org.slf4j.Logger
@@ -14,8 +11,12 @@ import org.slf4j.LoggerFactory
 class Main : ModInitializer {
 
     override fun onInitialize() {
+        configManager.load()
         Logger.info("Started initializing")
         eventBus.subscribe(blurManager)
+        Runtime.getRuntime().addShutdownHook(Thread {
+            configManager.save()
+        })
     }
 
 
@@ -28,5 +29,8 @@ class Main : ModInitializer {
         val featureManager: FeatureManager = FeatureManager()
         val fontManager: FontManager = FontManager()
         val hudManager: HudManager = HudManager()
+        val fileManager: FileManager = FileManager()
+        val configManager: ConfigManager = ConfigManager()
+
     }
 }
