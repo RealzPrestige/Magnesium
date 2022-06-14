@@ -11,6 +11,8 @@ import kotlin.collections.HashMap
 class OtherMods : Selected("Other Mods") {
     private val otherMods: ArrayList<Mod> = ArrayList()
     private val otherModsDrawables = ArrayList<OtherMod>()
+    private var scroll = 0.0f
+    private var prevTab = tab
 
     init {
         tab = "All"
@@ -54,6 +56,9 @@ class OtherMods : Selected("Other Mods") {
                 null
             }
         }
+        if (tab != prevTab){
+            scroll = 0.0f
+        }
         RenderSystem.enableScissor(0, 294, 100000, 571)
         for (d in otherModsDrawables) {
             if (modType != null && d.mod.modType != modType){
@@ -71,7 +76,7 @@ class OtherMods : Selected("Other Mods") {
                 deltaY += 85.0f
             }
             d.x = width / 3.5f + 17.5f + w
-            d.y = y + 38.0f + deltaY + addY
+            d.y = y + 38.0f + deltaY + addY + scroll
             w += 185.1428f
             d.render(matrices,
                 mouseX,
@@ -80,6 +85,13 @@ class OtherMods : Selected("Other Mods") {
             )
         }
         RenderSystem.disableScissor()
+        prevTab = tab
+    }
+
+    override fun mouseScrolled(mouseX: Double, mouseY: Double, amount: Double) {
+        if (mouseX > x + 4 && mouseY > y + 23 && mouseX < x + width - 4 && mouseY < y + height - 4) {
+            scroll += amount.toFloat() * 5
+        }
     }
 
     inner class Mod(val modName: String, val url: String, val modType: ModType)

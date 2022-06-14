@@ -25,7 +25,6 @@ class ClickGui : Screen(Text.of("ClickGui")) {
     private val features: SideTab = SideTab("Features")
     private val otherMods: SideTab = SideTab("Other Mods")
     private val hud: SideTab = SideTab("Hud")
-    private val profiles: SideTab = SideTab("Profiles")
     private val featureSelected: Selected = Features()
     private val otherModsSelected: Selected = OtherMods()
     private var isSearching: Boolean = false
@@ -36,8 +35,7 @@ class ClickGui : Screen(Text.of("ClickGui")) {
         sideTabs.addAll(arrayOf(
             features,
             otherMods,
-            hud,
-            profiles
+            hud
         )
         )
         sidebar = features
