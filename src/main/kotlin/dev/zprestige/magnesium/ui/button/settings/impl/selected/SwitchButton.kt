@@ -121,8 +121,8 @@ class SwitchButton(private val switch: Switch, x: Float, y: Float, width: Float,
                 y + (animationValue / 2.0f) - 0.5f,
                 x + 15.0f - (animationValue / 2.0f) + 0.5f,
                 y + height - (animationValue / 2.0f) + 0.5f,
-                Color(0, 0, 0, 100),
-                Color(0, 0, 0, 100),
+                Color(0, 0, 0, 50),
+                Color(0, 0, 0, 50),
                 true
             )
             RenderUtil.fillGradient(matrices,
