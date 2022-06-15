@@ -16,6 +16,7 @@ class Hud : Screen(Text.of("Hud")) {
     private var releaseFrame = false
     private var holding = false
     private val hudDrawables = ArrayList<HudDrawable>()
+    private var down = false
 
     init {
         Main.featureManager.features
@@ -29,6 +30,26 @@ class Hud : Screen(Text.of("Hud")) {
         hudDrawables.forEach {
             it.render(matrices, mouseX, mouseY)
         }
+        if (down) {
+            RenderUtil.fillGradient(matrices,
+                width / 2.0f - 0.5f,
+                0.0f,
+                width / 2.0f + 0.5f,
+                height.toFloat(),
+                Color.WHITE,
+                Color.WHITE,
+                true
+            )
+            RenderUtil.fillGradient(matrices,
+                0.0f,
+                height / 2.0f - 0.5f,
+                width.toFloat(),
+                height / 2.0f + 0.5f,
+                Color.WHITE,
+                Color.WHITE,
+                true
+            )
+        }
         if (clickFrame) {
             holding = true
         }
@@ -39,7 +60,7 @@ class Hud : Screen(Text.of("Hud")) {
     }
 
     override fun mouseClicked(mouseX: Double, mouseY: Double, button: Int): Boolean {
-            hudDrawables.forEach { it.mouseClicked(mouseX, mouseY) }
+        hudDrawables.forEach { it.mouseClicked(mouseX, mouseY) }
         clickFrame = true
         return super.mouseClicked(mouseX, mouseY, button)
     }
@@ -48,6 +69,20 @@ class Hud : Screen(Text.of("Hud")) {
         hudDrawables.forEach { it.mouseReleased() }
         releaseFrame = true
         return super.mouseReleased(mouseX, mouseY, button)
+    }
+
+    override fun keyPressed(keyCode: Int, scanCode: Int, modifiers: Int): Boolean {
+        if (keyCode == 341) {
+            down = true
+        }
+        return super.keyPressed(keyCode, scanCode, modifiers)
+    }
+
+    override fun keyReleased(keyCode: Int, scanCode: Int, modifiers: Int): Boolean {
+        if (keyCode == 341) {
+            down = false
+        }
+        return super.keyReleased(keyCode, scanCode, modifiers)
     }
 
     inner class HudDrawable(feature: Feature) {
@@ -66,10 +101,13 @@ class Hud : Screen(Text.of("Hud")) {
                 1.0f,
                 Color.WHITE
             )
+            if (this@Hud.down){
+                RenderUtil.fillGradient(matrices, hudComponent.x + hudComponent.width / 2.0f - 0.5f, hudComponent.y - 2.5f, hudComponent.x + hudComponent.width / 2.0f + 0.5f, hudComponent.y + hudComponent.height + 2.5f, Color(0, 255, 255, 50), Color(0, 255, 255, 50), true)
+            }
         }
 
         private fun drag(mouseX: Int, mouseY: Int) {
-            if (dragging){
+            if (dragging) {
                 hudComponent!!.x = dragX + mouseX
                 hudComponent.y = dragY + mouseY
             }

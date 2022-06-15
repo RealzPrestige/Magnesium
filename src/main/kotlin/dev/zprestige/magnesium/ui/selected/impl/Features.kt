@@ -210,8 +210,8 @@ class Features : Selected("Features") {
             /** iterate through map of words */
             for (entry in map.entries) {
                 Main.fontManager.prepare(0.8f).drawStringWithShadow(matrices,
-                    entry.key,
-                    x + (width / 2.0f) - (Main.fontManager.getStringWidth(entry.key, 0.8f) / 2.0f),
+                    entry.key + ".",
+                    x + (width / 2.0f) - (Main.fontManager.getStringWidth(entry.key + ".", 0.8f) / 2.0f),
                     y + Main.fontManager.getHeight(0.8f) + entry.value + 10.0f,
                     Color(200, 200, 200)
                 ).pop()

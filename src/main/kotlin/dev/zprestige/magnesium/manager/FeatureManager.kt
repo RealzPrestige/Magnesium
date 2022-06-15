@@ -4,12 +4,13 @@ import dev.zprestige.magnesium.Main
 import dev.zprestige.magnesium.features.Feature
 import dev.zprestige.magnesium.features.impl.ClickGui
 import dev.zprestige.magnesium.features.impl.Fps
+import dev.zprestige.magnesium.features.impl.PotionEffects
 
 class FeatureManager {
     val features = ArrayList<Feature>()
 
     init {
-        register(arrayOf(ClickGui(), Fps()))
+        register(arrayOf(ClickGui(), Fps(), PotionEffects()))
     }
 
     private fun register(features: Array<Feature>) {

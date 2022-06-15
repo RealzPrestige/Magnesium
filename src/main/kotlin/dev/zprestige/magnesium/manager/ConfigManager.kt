@@ -9,14 +9,19 @@ import java.io.File
 
 class ConfigManager {
     private val separator = File.separator
-    private val dir: FileManager.FileObject = Main.fileManager.FileObject(File("${Main.mc.runDirectory}${separator}Magnesium")).createDir()
-    private val configFile: FileManager.FileObject = Main.fileManager.FileObject(File("${dir.file}${separator}Config.txt")).createFile()
+    private val dir: FileManager.FileObject =
+        Main.fileManager.FileObject(File("${Main.mc.runDirectory}${separator}Magnesium")).createDir()
+    private val configFile: FileManager.FileObject =
+        Main.fileManager.FileObject(File("${dir.file}${separator}Config.txt")).createFile()
 
-    fun save(){
+    fun save() {
         val writer = configFile.createWriter()
         Main.featureManager.features.forEach { f ->
+            if (f.hudComponent != null) {
+                writer.write("${f.name} HudComponent ${f.hudComponent!!.x} ${f.hudComponent!!.y}")
+            }
             f.settings.forEach {
-                if (it is ColorBox){
+                if (it is ColorBox) {
                     writer.write("${f.name} ${it.name} ${it.value.red},${it.value.green},${it.value.blue},${it.value.alpha}")
                 } else {
                     writer.write("${f.name} ${it.name} ${it.value}")
@@ -26,7 +31,7 @@ class ConfigManager {
         writer.close()
     }
 
-    fun load(){
+    fun load() {
         val reader = configFile.createReader()
         reader.lines().forEach { line ->
             val split = line.split(" ")
@@ -36,37 +41,48 @@ class ConfigManager {
             var value = ""
             var i = 0
             value1.toCharArray().forEach {
-                if (i > 1){
+                if (i > 1) {
                     value += it
                 }
                 i += 1
             }
-
-            if (setting?.name.equals("Enabled")){
-                if (value.toBoolean()){
-                    feature?.toggle()
+            if (split[1] == "HudComponent") {
+                val x = split[2].toFloat()
+                val y = split[3].toFloat()
+                feature!!.hudComponent!!.x = x
+                feature.hudComponent!!.y = y
+                println("${feature.name} ${feature.hudComponent!!.x} ${feature.hudComponent!!.y}")
+            } else {
+                if (setting?.name.equals("Enabled")) {
+                    if (value.toBoolean()) {
+                        feature?.toggle()
+                    }
+                    return@forEach
                 }
-                return@forEach
-            }
-            when (setting){
-                is ColorBox -> {
-                    val splitValue = value.split(",")
-                    setting.value = Color(splitValue[0].toInt(), splitValue[1].toInt(), splitValue[2].toInt(), splitValue[3].toInt())
-                }
-                is Combo -> {
-                    setting.value = value
-                }
-                is Keybind -> {
-                    setting.value = value.toInt()
-                }
-                is SliderFloat -> {
-                    setting.value = value.toFloat()
-                }
-                is SliderInt -> {
-                    setting.value = value.toInt()
-                }
-                is Switch -> {
-                    setting.value = value.toBoolean()
+                when (setting) {
+                    is ColorBox -> {
+                        val splitValue = value.split(",")
+                        setting.value = Color(splitValue[0].toInt(),
+                            splitValue[1].toInt(),
+                            splitValue[2].toInt(),
+                            splitValue[3].toInt()
+                        )
+                    }
+                    is Combo -> {
+                        setting.value = value
+                    }
+                    is Keybind -> {
+                        setting.value = value.toInt()
+                    }
+                    is SliderFloat -> {
+                        setting.value = value.toFloat()
+                    }
+                    is SliderInt -> {
+                        setting.value = value.toInt()
+                    }
+                    is Switch -> {
+                        setting.value = value.toBoolean()
+                    }
                 }
             }
         }

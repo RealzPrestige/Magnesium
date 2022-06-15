@@ -282,7 +282,7 @@ class ClickGui : Screen(Text.of("ClickGui")) {
         if (sidebar != prevSidebar) {
             /** set selected according to new sidebar value */
             when (sidebar?.name) {
-                "Features" -> { selected = featureSelected }
+                "Features" -> selected = featureSelected
                 "Other Mods" -> selected = otherModsSelected
                 "Hud" -> mc.setScreen(Hud())
             }
