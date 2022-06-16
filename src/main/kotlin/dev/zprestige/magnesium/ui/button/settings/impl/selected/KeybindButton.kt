@@ -5,6 +5,7 @@ import dev.zprestige.magnesium.settings.impl.Keybind
 import dev.zprestige.magnesium.ui.button.settings.SettingButton
 import dev.zprestige.magnesium.util.RenderUtil
 import net.minecraft.client.util.math.MatrixStack
+import net.minecraft.util.Formatting
 import java.awt.Color
 
 class KeybindButton(private val keybind: Keybind, x: Float, y: Float, width: Float, height: Float) : SettingButton(
@@ -20,12 +21,20 @@ class KeybindButton(private val keybind: Keybind, x: Float, y: Float, width: Flo
 
 
     override fun render(matrices: MatrixStack, mouseX: Int, mouseY: Int, clickFrame: Boolean, releaseFrame: Boolean) {
+        val name = if (keybind.hold){
+           "${Formatting.UNDERLINE}${keybind.name}"
+        } else {
+            keybind.name
+        }
         Main.fontManager.drawStringWithShadow(matrices,
-            keybind.name,
+            name,
             x,
             y + (height / 2.0f) - (Main.fontManager.getHeight() / 2.0f),
             Color.WHITE
         )
+        if (clickFrame && mouseX > x && mouseY > y + (height / 2.0f) - (Main.fontManager.getHeight() / 2.0f) && mouseX < x + Main.fontManager.getStringWidth(keybind.name) && mouseY < (y + (height / 2.0f) - (Main.fontManager.getHeight() / 2.0f)) + Main.fontManager.getHeight()){
+            keybind.hold = !keybind.hold
+        }
         RenderUtil.fill(matrices, x + width - 104, y + 1, x + width - 4, y + height - 1, Color(0, 0, 0, 30))
         RenderUtil.fillGradient(matrices,
             x + width - 4,

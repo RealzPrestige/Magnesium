@@ -31,6 +31,7 @@ class Main : ModInitializer {
         val hudManager: HudManager = HudManager()
         val fileManager: FileManager = FileManager()
         val configManager: ConfigManager = ConfigManager()
+        val keyManager: KeyManager = KeyManager()
 
     }
 }

@@ -21,10 +21,16 @@ class ConfigManager {
                 writer.write("${f.name} HudComponent ${f.hudComponent!!.x} ${f.hudComponent!!.y}")
             }
             f.settings.forEach {
-                if (it is ColorBox) {
-                    writer.write("${f.name} ${it.name} ${it.value.red},${it.value.green},${it.value.blue},${it.value.alpha}")
-                } else {
-                    writer.write("${f.name} ${it.name} ${it.value}")
+                when (it) {
+                    is ColorBox -> {
+                        writer.write("${f.name} ${it.name} ${it.value.red},${it.value.green},${it.value.blue},${it.value.alpha}")
+                    }
+                    is Keybind -> {
+                        writer.write("${f.name} ${it.name} ${it.value} ${it.hold}")
+                    }
+                    else -> {
+                        writer.write("${f.name} ${it.name} ${it.value}")
+                    }
                 }
             }
         }
@@ -35,14 +41,8 @@ class ConfigManager {
         val reader = configFile.createReader()
         reader.lines().forEach { line ->
             val split = line.split(" ")
-            val feature = featureByName(split[0])
-            if (feature == null){
-                return@forEach
-            }
-            val setting = settingByName(feature, split[1])
-            if (setting == null){
-                return@forEach
-            }
+            val feature = featureByName(split[0]) ?: return@forEach
+            val setting = settingByName(feature, split[1]) ?: return@forEach
             val value1 = line.replace(split[0], "").replace(split[1], "")
             var value = ""
             var i = 0
@@ -55,13 +55,13 @@ class ConfigManager {
             if (split[1] == "HudComponent") {
                 val x = split[2].toFloat()
                 val y = split[3].toFloat()
-                feature!!.hudComponent!!.x = x
+                feature.hudComponent!!.x = x
                 feature.hudComponent!!.y = y
                 println("${feature.name} ${feature.hudComponent!!.x} ${feature.hudComponent!!.y}")
             } else {
-                if (setting?.name.equals("Enabled")) {
+                if (setting.name == "Enabled") {
                     if (value.toBoolean()) {
-                        feature?.toggle()
+                        feature.toggle()
                     }
                     return@forEach
                 }
@@ -79,6 +79,7 @@ class ConfigManager {
                     }
                     is Keybind -> {
                         setting.value = value.toInt()
+                        setting.hold = split[3].toBoolean()
                     }
                     is SliderFloat -> {
                         setting.value = value.toFloat()
