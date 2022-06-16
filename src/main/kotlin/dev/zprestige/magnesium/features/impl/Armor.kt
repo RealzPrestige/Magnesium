@@ -2,7 +2,7 @@ package dev.zprestige.magnesium.features.impl
 
 import dev.zprestige.magnesium.Main
 import dev.zprestige.magnesium.event.eventbus.EventListener
-import dev.zprestige.magnesium.event.eventbus.listener
+import dev.zprestige.magnesium.event.eventbus.eventListener
 import dev.zprestige.magnesium.event.impl.Render2DEvent
 import dev.zprestige.magnesium.features.Feature
 import net.minecraft.item.ItemStack
@@ -21,7 +21,7 @@ class Armor : Feature("Armor", "Displays armor with durability") {
     }
 
     @EventListener
-    fun onRender2D() = listener<Render2DEvent> {
+    fun onRender2D() = eventListener<Render2DEvent> {
         val matrices = it.matrixStack
         val itemRenderer = mc.itemRenderer
         var deltaX = 0.0f

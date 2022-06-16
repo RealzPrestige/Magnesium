@@ -15,7 +15,7 @@ class Listener @PublishedApi internal constructor(
     internal var subscriber: Any? = null
 }
 
-inline fun <reified T : Any> listener(
+inline fun <reified T : Any> eventListener(
     priority: Int = 0,
     parallel: Boolean = false,
     noinline listener: (T) -> Unit
@@ -23,7 +23,7 @@ inline fun <reified T : Any> listener(
 
 
 @JvmOverloads
-fun <T : Any> listener(
+fun <T : Any> eventListener(
     type: Class<T>,
     priority: Int = 0,
     parallel: Boolean = false,

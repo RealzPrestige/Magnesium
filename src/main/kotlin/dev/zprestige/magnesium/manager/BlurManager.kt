@@ -2,7 +2,7 @@ package dev.zprestige.magnesium.manager
 
 import dev.zprestige.magnesium.Main.Companion.mc
 import dev.zprestige.magnesium.event.eventbus.EventListener
-import dev.zprestige.magnesium.event.eventbus.listener
+import dev.zprestige.magnesium.event.eventbus.eventListener
 import dev.zprestige.magnesium.event.impl.Render3DEvent
 import ladysnake.satin.api.event.ShaderEffectRenderCallback
 import ladysnake.satin.api.managed.ManagedShaderEffect
@@ -29,7 +29,7 @@ class BlurManager {
     }
 
     @EventListener
-    fun render3D() = listener<Render3DEvent> {
+    fun render3D() = eventListener<Render3DEvent> {
         updateBlur()
     }
 

@@ -2,7 +2,7 @@ package dev.zprestige.magnesium.manager
 
 import dev.zprestige.magnesium.Main
 import dev.zprestige.magnesium.event.eventbus.EventListener
-import dev.zprestige.magnesium.event.eventbus.listener
+import dev.zprestige.magnesium.event.eventbus.eventListener
 import dev.zprestige.magnesium.event.impl.KeyEvent
 import dev.zprestige.magnesium.features.Feature
 import dev.zprestige.magnesium.features.impl.*
@@ -33,7 +33,7 @@ class FeatureManager {
     }
 
     @EventListener
-    fun keyPressed() = listener<KeyEvent> {
+    fun keyPressed() = eventListener<KeyEvent> {
         if (Main.mc.currentScreen == null) {
             features.filter {
                 !it.keybind.hold

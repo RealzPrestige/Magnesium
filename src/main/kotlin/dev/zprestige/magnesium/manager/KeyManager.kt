@@ -2,7 +2,7 @@ package dev.zprestige.magnesium.manager
 
 import dev.zprestige.magnesium.Main
 import dev.zprestige.magnesium.event.eventbus.EventListener
-import dev.zprestige.magnesium.event.eventbus.listener
+import dev.zprestige.magnesium.event.eventbus.eventListener
 import dev.zprestige.magnesium.event.impl.KeyEvent
 
 class KeyManager {
@@ -13,7 +13,7 @@ class KeyManager {
     }
 
     @EventListener
-    fun onPress() = listener<KeyEvent.Press> { it ->
+    fun onPress() = eventListener<KeyEvent.Press> { it ->
         val key = it.key
         Main.featureManager.features.filter {
             it.keybind.hold && it.keybind.value == key
@@ -23,7 +23,7 @@ class KeyManager {
     }
 
     @EventListener
-    fun onRelease() = listener<KeyEvent.Release> { it ->
+    fun onRelease() = eventListener<KeyEvent.Release> { it ->
         val key = it.key
         Main.featureManager.features.filter {
             it.keybind.hold && it.keybind.value == key
@@ -33,7 +33,7 @@ class KeyManager {
     }
 
     @EventListener
-    fun onKey() = listener<KeyEvent> {
+    fun onKey() = eventListener<KeyEvent> {
         if (heldKeys.contains(it.key) && it.action == 0) {
             Main.eventBus.post(KeyEvent.Release(it.key))
             heldKeys.remove(it.key)

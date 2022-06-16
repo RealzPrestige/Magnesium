@@ -1,7 +1,7 @@
 package dev.zprestige.magnesium.features.impl
 
 import dev.zprestige.magnesium.event.eventbus.EventListener
-import dev.zprestige.magnesium.event.eventbus.listener
+import dev.zprestige.magnesium.event.eventbus.eventListener
 import dev.zprestige.magnesium.event.impl.Render3DEvent
 import dev.zprestige.magnesium.event.impl.TimeEvent
 import dev.zprestige.magnesium.features.Feature
@@ -14,7 +14,7 @@ class TimeChanger : Feature("Time Changer", "Changes the time of the world") {
     private var animation = 0.0f
 
     @EventListener
-    fun onRender3D() = listener<Render3DEvent> {
+    fun onRender3D() = eventListener<Render3DEvent> {
         animation = min(1.0f, (animation + (0.001f * animate.value)))
         if (animation >= 1.0f){
             animation = 0.0f
@@ -22,7 +22,7 @@ class TimeChanger : Feature("Time Changer", "Changes the time of the world") {
     }
 
     @EventListener
-    fun onTime() = listener<TimeEvent> {
+    fun onTime() = eventListener<TimeEvent> {
         if (animate.value > 0.0f){
             it.time = (24000 * animation).roundToLong()
         } else {
