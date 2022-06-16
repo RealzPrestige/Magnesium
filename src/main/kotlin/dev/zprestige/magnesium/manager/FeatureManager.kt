@@ -18,7 +18,8 @@ class FeatureManager {
             Latency(),
             NoHurtCam(),
             PotionEffects(),
-            RemoveScoreboard()
+            RemoveScoreboard(),
+            TimeChanger()
         )
         )
         Main.eventBus.subscribe(this)
