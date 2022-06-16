@@ -2,7 +2,6 @@ package dev.zprestige.magnesium.features.impl
 
 import dev.zprestige.magnesium.Main
 import dev.zprestige.magnesium.features.Feature
-import net.minecraft.client.resource.language.I18n
 import net.minecraft.client.util.math.MatrixStack
 import java.awt.Color
 import java.util.concurrent.TimeUnit

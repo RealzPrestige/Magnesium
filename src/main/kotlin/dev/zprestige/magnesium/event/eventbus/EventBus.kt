@@ -18,11 +18,11 @@ open class EventBus(private val config: Config = Config()) {
         if (it) cache[subscriber]?.forEach(::unregister)
     }
 
-    private fun register(listener: Listener): Boolean = listeners.computeIfAbsent(listener.type) {
+    fun register(listener: Listener): Boolean = listeners.computeIfAbsent(listener.type) {
         ListenerGroup(it, config)
     }.register(listener)
 
-    private fun unregister(listener: Listener): Boolean = listeners[listener.type]?.let {
+    fun unregister(listener: Listener): Boolean = listeners[listener.type]?.let {
         val contained = it.unregister(listener)
         if (it.parallel.isEmpty() && it.sequential.isEmpty()) {
             listeners.remove(listener.type)

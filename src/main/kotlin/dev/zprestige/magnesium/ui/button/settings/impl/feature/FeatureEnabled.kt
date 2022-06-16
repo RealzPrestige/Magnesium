@@ -8,7 +8,7 @@ import dev.zprestige.magnesium.util.RenderUtil
 import net.minecraft.client.util.math.MatrixStack
 import java.awt.Color
 
-class FeatureEnabled(feature: Feature, x: Float, y: Float, width: Float, height: Float) : SettingButton(feature.enabled, x,
+class FeatureEnabled(val feature: Feature, x: Float, y: Float, width: Float, height: Float) : SettingButton(feature.enabled, x,
     y,
     width,
     height
@@ -74,7 +74,7 @@ class FeatureEnabled(feature: Feature, x: Float, y: Float, width: Float, height:
             Color(convertWhiteToGray(color.red), convertWhiteToGray(color.green), convertWhiteToGray(color.blue))
         }
         if (hovering(mouseX, mouseY) && clickFrame) {
-            switch.value = !switch.value
+            feature.toggle()
         }
         if (switch.value || hovering(mouseX, mouseY)) {
             if (animationValue > 5.0f) {

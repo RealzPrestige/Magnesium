@@ -5,12 +5,19 @@ import dev.zprestige.magnesium.features.Feature
 import dev.zprestige.magnesium.features.impl.ClickGui
 import dev.zprestige.magnesium.features.impl.Fps
 import dev.zprestige.magnesium.features.impl.PotionEffects
+import dev.zprestige.magnesium.features.impl.RemoveScoreboard
 
 class FeatureManager {
     val features = ArrayList<Feature>()
 
     init {
-        register(arrayOf(ClickGui(), Fps(), PotionEffects()))
+        register(arrayOf(
+            ClickGui(),
+            Fps(),
+            PotionEffects(),
+            RemoveScoreboard()
+        )
+        )
     }
 
     private fun register(features: Array<Feature>) {
