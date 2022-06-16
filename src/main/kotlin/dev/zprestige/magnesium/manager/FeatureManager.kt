@@ -13,6 +13,7 @@ class FeatureManager {
     init {
         register(arrayOf(
             Armor(),
+            Chat(),
             ClickGui(),
             Crosshair(),
             Fps(),
