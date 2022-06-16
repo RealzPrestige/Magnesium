@@ -48,7 +48,7 @@ class Armor : Feature("Armor", "Displays armor with durability") {
                     matrices,
                     renderString,
                     hudComponent!!.x + deltaX + addX - (Main.fontManager.getStringWidth(renderString, 0.7f) / 2.0f),
-                    hudComponent!!.y + deltaY - Main.fontManager.getHeight(0.7f) + addY,
+                    hudComponent!!.y + deltaY - Main.fontManager.getHeight(0.7f) - addY,
                     color
                 ).pop()
             }
