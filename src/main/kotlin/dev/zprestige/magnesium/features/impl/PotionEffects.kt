@@ -7,7 +7,7 @@ import java.awt.Color
 import java.util.concurrent.TimeUnit
 
 
-class PotionEffects : Feature("PotionEffects", "Displays which potions are active and together with its duration") {
+class PotionEffects : Feature("PotionEffects", "Displays which potions are active together with its amplifier and duration") {
     private val capitalized = inscribe("Capitalized", true).tab("Text")
     private val shadow = inscribe("Shadow", true).tab("Rendering")
     private val scale = inscribe("Scale", 1.0f, 0.1f, 5.0f).tab("Rendering")

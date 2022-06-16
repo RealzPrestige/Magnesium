@@ -78,7 +78,7 @@ class ConfigManager {
                         setting.value = value
                     }
                     is Keybind -> {
-                        setting.value = value.toInt()
+                        setting.value = value.split(" ")[0].toInt()
                         setting.hold = split[3].toBoolean()
                     }
                     is SliderFloat -> {

@@ -12,6 +12,7 @@ class FeatureManager {
 
     init {
         register(arrayOf(
+            Armor(),
             ClickGui(),
             Fps(),
             Latency(),

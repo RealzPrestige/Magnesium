@@ -14,6 +14,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(InGameHud.class)
 public class MixinInGameHud {
+
     @Shadow
     private int scaledWidth;
 
@@ -26,10 +27,10 @@ public class MixinInGameHud {
     }
 
     @Inject(method = "renderScoreboardSidebar", at = @At("HEAD"), cancellable = true)
-    private void renderScoreboardSidebar(MatrixStack matrices, ScoreboardObjective objective, CallbackInfo ci){
+    private void renderScoreboardSidebar(MatrixStack matrices, ScoreboardObjective objective, CallbackInfo ci) {
         RenderScoreboardEvent event = new RenderScoreboardEvent();
         Main.Companion.getEventBus().post(event);
-        if (event.getCancelled()){
+        if (event.getCancelled()) {
             ci.cancel();
         }
     }
