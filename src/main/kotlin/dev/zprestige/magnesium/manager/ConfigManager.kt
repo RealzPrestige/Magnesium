@@ -36,7 +36,13 @@ class ConfigManager {
         reader.lines().forEach { line ->
             val split = line.split(" ")
             val feature = featureByName(split[0])
+            if (feature == null){
+                return@forEach
+            }
             val setting = settingByName(feature, split[1])
+            if (setting == null){
+                return@forEach
+            }
             val value1 = line.replace(split[0], "").replace(split[1], "")
             var value = ""
             var i = 0

@@ -1,6 +1,7 @@
 package dev.zprestige.magnesium.manager
 
 import dev.zprestige.magnesium.Main.Companion.mc
+import dev.zprestige.magnesium.event.eventbus.EventListener
 import dev.zprestige.magnesium.event.eventbus.listener
 import dev.zprestige.magnesium.event.impl.Render3DEvent
 import ladysnake.satin.api.event.ShaderEffectRenderCallback
@@ -14,7 +15,7 @@ class BlurManager {
             shader.setUniformValue("Radius", 10.0f)
         }
     private val blurProgress = blur.findUniform1f("Progress")
-    private var radius: Float = 0.0f
+    var radius: Float = 0.0f
 
     init {
         ShaderEffectRenderCallback.EVENT.register(ShaderEffectRenderCallback { deltaTick: Float ->
@@ -23,10 +24,11 @@ class BlurManager {
         })
     }
 
-    private fun blur(radius: Float) {
+    fun blur(radius: Float) {
         blur.setUniformValue("Radius", radius)
     }
 
+    @EventListener
     fun render3D() = listener<Render3DEvent> {
         updateBlur()
     }

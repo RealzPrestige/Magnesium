@@ -1,6 +1,7 @@
 package dev.zprestige.magnesium.mixins;
 
 import dev.zprestige.magnesium.Main;
+import dev.zprestige.magnesium.event.impl.BobEvent;
 import dev.zprestige.magnesium.event.impl.Render3DEvent;
 import net.minecraft.client.render.GameRenderer;
 import net.minecraft.client.util.math.MatrixStack;
@@ -16,5 +17,12 @@ public class MixinGameRenderer {
         Main.Companion.getEventBus().post(new Render3DEvent(matrices));
     }
 
-
+    @Inject(method = "bobViewWhenHurt", at = @At("HEAD"), cancellable = true)
+    public void bobViewWhenHurt(MatrixStack matrices, float tickDelta, CallbackInfo callbackInfo){
+        BobEvent event = new BobEvent();
+        Main.Companion.getEventBus().post(event);
+        if (event.getCancelled()){
+            callbackInfo.cancel();
+        }
+    }
 }

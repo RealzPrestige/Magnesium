@@ -2,10 +2,7 @@ package dev.zprestige.magnesium.manager
 
 import dev.zprestige.magnesium.Main
 import dev.zprestige.magnesium.features.Feature
-import dev.zprestige.magnesium.features.impl.ClickGui
-import dev.zprestige.magnesium.features.impl.Fps
-import dev.zprestige.magnesium.features.impl.PotionEffects
-import dev.zprestige.magnesium.features.impl.RemoveScoreboard
+import dev.zprestige.magnesium.features.impl.*
 
 class FeatureManager {
     val features = ArrayList<Feature>()
@@ -14,6 +11,8 @@ class FeatureManager {
         register(arrayOf(
             ClickGui(),
             Fps(),
+            Latency(),
+            NoHurtCam(),
             PotionEffects(),
             RemoveScoreboard()
         )
