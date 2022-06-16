@@ -12,6 +12,8 @@ import kotlin.math.ceil
 class Armor : Feature("Armor", "Displays armor with durability") {
     private val reversed = inscribe("Reversed", false)
     private val fixUnderWater = inscribe("Fix Under Water", false)
+    private val removeDecimal = inscribe("Remove Decimal", false)
+    private val removePercentage = inscribe("Remove %", false)
     private val renderMode = inscribe("Render Mode", "Horizontal", arrayOf("Horizontal", "Vertical"))
 
     init {
@@ -43,7 +45,16 @@ class Armor : Feature("Armor", "Displays armor with durability") {
             if (!armor.isEmpty) {
                 val percentage = ceil(getPercentage(armor))
                 val color = Color(redByPercentage(percentage), greenByPercentage(percentage), 0.0f)
-                val renderString = "$percentage%"
+                var percentage1 = percentage.toString()
+                if (removeDecimal.value){
+                    percentage1 = percentage.toString().replace(".0", "")
+                }
+                val icon = if (removePercentage.value){
+                    ""
+                } else {
+                    "%"
+                }
+                val renderString = "$percentage1$icon"
                 Main.fontManager.prepare(0.7f).drawStringWithShadow(
                     matrices,
                     renderString,
