@@ -12,7 +12,10 @@ public class MixinKeyboard {
 
     @Inject(method = "onKey", at = @At( "HEAD"))
     private void onKey(long window, int key, int scancode, int action, int modifiers, CallbackInfo ci){
-        Main.Companion.getFeatureManager().keyPressed(key);
+        if (key != -1) {
+            Main.Companion.getFeatureManager().keyPressed(key);
+        }
+        System.out.println(key + " " + scancode);
     }
 
 }
