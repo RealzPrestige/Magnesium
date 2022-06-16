@@ -27,10 +27,9 @@ internal fun interface CancelledState {
         private val CACHE = ConcurrentHashMap<KClass<*>, CancelledState>()
 
 
-        operator fun invoke(type: KClass<*>, config: Config): CancelledState = CACHE.getOrPut(type) {
+        operator fun invoke(type: KClass<*>): CancelledState = CACHE.getOrPut(type) {
             if (type.isSubclassOf(Event::class)) CancelledState { (it as Event).cancelled }
-            else if (!config.thirdPartyCompatibility) NOT_CANCELLABLE
-             else type.allMembers.filter { it.name in NAMES && it.returnType.withNullability(false) == typeOf<Boolean>() }
+            else type.allMembers.filter { it.name in NAMES && it.returnType.withNullability(false) == typeOf<Boolean>() }
                 .filterIsInstance<KMutableProperty<*>>().filter { it.javaField != null }.toList().let {
                     if (it.isEmpty() || UNSAFE == null) NOT_CANCELLABLE else {
                         if (it.size != 1) Main.Logger.warn("Multiple possible cancel fields found for event $type")

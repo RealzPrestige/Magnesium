@@ -1,14 +1,12 @@
 package dev.zprestige.magnesium.event.eventbus
 
-import kotlinx.coroutines.launch
 import java.util.concurrent.CopyOnWriteArrayList
 import kotlin.reflect.KClass
 
 internal class ListenerGroup(
-    private val type: KClass<*>,
-    private val config: Config
+    private val type: KClass<*>
 ) {
-    private val cancelledState = CancelledState(type, config)
+    private val cancelledState = CancelledState(type)
     val sequential = CopyOnWriteArrayList<Listener>()
     val parallel = CopyOnWriteArrayList<Listener>()
 
@@ -38,9 +36,7 @@ internal class ListenerGroup(
         if (parallel.isNotEmpty()) {
             parallel.forEach {
                 if (it.receiveCancelled || !cancelled) {
-                    config.parallelScope.launch {
-                        it.listener(event)
-                    }
+                    it.listener(event)
                 }
             }
         }

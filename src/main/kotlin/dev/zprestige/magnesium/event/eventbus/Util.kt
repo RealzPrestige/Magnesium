@@ -21,8 +21,8 @@ private inline val KClass<*>.listeners
         it.returnType.withNullability(false) == typeOf<Listener>() && it.valueParameters.isEmpty()
     } as Sequence<KCallable<Listener>>
 
-internal fun getListeners(subscriber: Any, config: Config) = runCatching {
-    subscriber::class.listeners.filter { !config.annotationRequired || it.hasAnnotation<EventListener>() }
+internal fun getListeners(subscriber: Any) = runCatching {
+    subscriber::class.listeners.filter { it.hasAnnotation<EventListener>() }
         .map { member -> member.handleCall(subscriber).also { it.subscriber = subscriber } }.toList()
 }.onFailure { Main.Logger.error("Unable to register listeners for subscriber $subscriber", it) }.getOrNull()
 
