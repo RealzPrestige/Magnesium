@@ -9,6 +9,6 @@ class NoHurtCam : Feature("NoHurtCam", "Removes the animation when damage taken"
 
     @EventListener
     fun onBob() = listener<BobEvent> {
-        it.cancelled = true
+        it.cancel()
     }
 }

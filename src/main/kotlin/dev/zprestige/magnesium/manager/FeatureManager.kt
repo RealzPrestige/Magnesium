@@ -14,6 +14,7 @@ class FeatureManager {
         register(arrayOf(
             Armor(),
             ClickGui(),
+            Crosshair(),
             Fps(),
             Latency(),
             NoHurtCam(),

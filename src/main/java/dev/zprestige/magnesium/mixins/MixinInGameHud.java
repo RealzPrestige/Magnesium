@@ -1,6 +1,7 @@
 package dev.zprestige.magnesium.mixins;
 
 import dev.zprestige.magnesium.Main;
+import dev.zprestige.magnesium.event.impl.CrosshairEvent;
 import dev.zprestige.magnesium.event.impl.Render2DEvent;
 import dev.zprestige.magnesium.event.impl.RenderScoreboardEvent;
 import net.minecraft.client.gui.hud.InGameHud;
@@ -32,6 +33,15 @@ public class MixinInGameHud {
         Main.Companion.getEventBus().post(event);
         if (event.getCancelled()) {
             ci.cancel();
+        }
+    }
+
+    @Inject(method = "renderCrosshair", at = @At("HEAD"), cancellable = true)
+    private void renderCrosshair(MatrixStack matrices, CallbackInfo callbackInfo){
+        CrosshairEvent event = new CrosshairEvent();
+        Main.Companion.getEventBus().post(event);
+        if (event.getCancelled()){
+            callbackInfo.cancel();
         }
     }
 }

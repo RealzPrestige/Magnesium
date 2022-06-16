@@ -9,6 +9,6 @@ class RemoveScoreboard : Feature("Remove Scoreboard", "Removes the scoreboard") 
 
     @EventListener
     fun scoreboardListener() = listener<RenderScoreboardEvent> {
-        it.cancelled = true
+        it.cancel()
     }
 }

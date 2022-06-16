@@ -11,6 +11,9 @@ import java.awt.Color
 class RenderUtil {
 
     companion object {
+        fun fillCorrectly(matrices: MatrixStack, x: Float, y: Float, width: Float, height: Float, color: Color){
+            fillGradient(matrices, x, y, width, height, color, color, true)
+        }
         fun fill(matrices: MatrixStack, x: Float, y: Float, width: Float, height: Float, color: Color) {
             DrawableHelper.fill(matrices, x.toInt(), y.toInt(), width.toInt(), height.toInt(), color.rgb)
         }
