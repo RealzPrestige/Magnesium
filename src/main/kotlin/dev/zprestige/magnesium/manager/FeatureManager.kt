@@ -16,6 +16,7 @@ class FeatureManager {
             ClickGui(),
             Crosshair(),
             Fps(),
+            FullBright(),
             Latency(),
             NoHurtCam(),
             PotionEffects(),
