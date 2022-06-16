@@ -28,14 +28,14 @@ internal class ListenerGroup(
 
     fun post(event: Any): Boolean {
         sequential.forEach {
-            if (it.receiveCancelled || !cancelledState.isCancelled(event)) {
+            if (!cancelledState.isCancelled(event)) {
                 it.listener(event)
             }
         }
         val cancelled = cancelledState.isCancelled(event)
         if (parallel.isNotEmpty()) {
             parallel.forEach {
-                if (it.receiveCancelled || !cancelled) {
+                if (!cancelled) {
                     it.listener(event)
                 }
             }
