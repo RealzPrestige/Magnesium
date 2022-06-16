@@ -43,4 +43,8 @@ class KeyManager {
             heldKeys.add(it.key)
         }
     }
+
+    fun isKeyHeld(key: Int): Boolean {
+        return heldKeys.contains(key)
+    }
 }

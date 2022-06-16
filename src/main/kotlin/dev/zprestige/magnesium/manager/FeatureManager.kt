@@ -19,7 +19,8 @@ class FeatureManager {
             NoHurtCam(),
             PotionEffects(),
             RemoveScoreboard(),
-            TimeChanger()
+            TimeChanger(),
+            Zoom()
         )
         )
         Main.eventBus.subscribe(this)
