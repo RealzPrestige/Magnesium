@@ -19,31 +19,33 @@ class Zoom : Feature("Zoom", "Zooms in by fov") {
 
     @EventListener
     fun onZoom() = eventListener<ZoomEvent> {
-        if (zoomBind.value != -1) {
-            if (zoomBind.hold) {
-                if (Main.keyManager.isKeyHeld(zoomBind.value)) {
-                    if (animate.value) {
-                        zoom += (1.0f - zoom) / (50.0f / animationSpeed.value)
+        if (mc.currentScreen == null) {
+            if (zoomBind.value != -1) {
+                if (zoomBind.hold) {
+                    if (Main.keyManager.isKeyHeld(zoomBind.value)) {
+                        if (animate.value) {
+                            zoom += (1.0f - zoom) / (50.0f / animationSpeed.value)
+                        } else {
+                            it.fov = zoomedFov.value.toDouble()
+                        }
+                        if (cinematic.value) {
+                            cinematic()
+                        }
                     } else {
-                        it.fov = zoomedFov.value.toDouble()
+                        if (animate.value) {
+                            zoom -= zoom / (50.0f / animationSpeed.value)
+                        }
                     }
+                    it.fov -= (mc.options.fov - zoomedFov.value) * zoom
+                } else if (pressed) {
                     if (cinematic.value) {
                         cinematic()
                     }
-                } else {
-                    if (animate.value) {
-                        zoom -= zoom / (50.0f / animationSpeed.value)
-                    }
+                    it.fov = zoomedFov.value.toDouble()
                 }
-                it.fov -= (mc.options.fov - zoomedFov.value) * zoom
-            } else if (pressed) {
-                if (cinematic.value) {
-                    cinematic()
-                }
-                it.fov = zoomedFov.value.toDouble()
             }
+            uncinematize()
         }
-        uncinematize()
     }
 
     @EventListener
@@ -53,12 +55,12 @@ class Zoom : Feature("Zoom", "Zooms in by fov") {
         }
     }
 
-    fun cinematic() {
+    private fun cinematic() {
         mc.options.smoothCameraEnabled = true
         smooth = true
     }
 
-    fun uncinematize() {
+    private fun uncinematize() {
         mc.options.smoothCameraEnabled = false
         smooth = false
     }

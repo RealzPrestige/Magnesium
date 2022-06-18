@@ -17,12 +17,16 @@ open class FileManager {
 
 
         fun createDir(): FileObject {
-            file.mkdirs()
+            if (!file.exists()) {
+                file.mkdirs()
+            }
             return this
         }
 
         fun createFile(): FileObject {
-            file.createNewFile()
+            if (!file.exists()) {
+                file.createNewFile()
+            }
             return this
         }
 

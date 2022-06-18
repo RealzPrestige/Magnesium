@@ -1,9 +1,11 @@
 package dev.zprestige.magnesium.features.impl
 
+import com.mojang.blaze3d.platform.GlStateManager
 import dev.zprestige.magnesium.Main
 import dev.zprestige.magnesium.event.eventbus.EventListener
 import dev.zprestige.magnesium.event.eventbus.eventListener
 import dev.zprestige.magnesium.event.impl.Render2DEvent
+import dev.zprestige.magnesium.event.impl.Render3DEvent
 import dev.zprestige.magnesium.features.Feature
 import net.minecraft.item.ItemStack
 import java.awt.Color
