@@ -12,8 +12,10 @@ class Zoom : Feature("Zoom", "Zooms in by fov") {
     private val zoomedFov = inscribe("Zoomed Fov", 30.0f, 10.0f, 50.0f)
     private val animate = inscribe("Animate", false)
     private val animationSpeed = inscribe("Animation Speed", 1.0f, 0.1f, 10.0f)
+    private val cinematic = inscribe("Cinematic", false)
     private var zoom = 0.0
     private var pressed = false
+    private var smooth = false
 
     @EventListener
     fun onZoom() = eventListener<ZoomEvent> {
@@ -25,16 +27,23 @@ class Zoom : Feature("Zoom", "Zooms in by fov") {
                     } else {
                         it.fov = zoomedFov.value.toDouble()
                     }
-                }  else {
+                    if (cinematic.value) {
+                        cinematic()
+                    }
+                } else {
                     if (animate.value) {
                         zoom -= zoom / (50.0f / animationSpeed.value)
                     }
                 }
                 it.fov -= (mc.options.fov - zoomedFov.value) * zoom
             } else if (pressed) {
+                if (cinematic.value) {
+                    cinematic()
+                }
                 it.fov = zoomedFov.value.toDouble()
             }
         }
+        uncinematize()
     }
 
     @EventListener
@@ -42,5 +51,15 @@ class Zoom : Feature("Zoom", "Zooms in by fov") {
         if (it.key == zoomBind.value) {
             pressed = !pressed
         }
+    }
+
+    fun cinematic() {
+        mc.options.smoothCameraEnabled = true
+        smooth = true
+    }
+
+    fun uncinematize() {
+        mc.options.smoothCameraEnabled = false
+        smooth = false
     }
 }
