@@ -23,7 +23,7 @@ class Fps : Feature("Fps", "Renders frames per second") {
         val fps = mc.fpsDebugString.split(" ")[0]
         var drawText = when (text.value) {
             "[{VALUE} FPS]" -> "[$fps Fps]"
-            "[FPS: {VALUE}]" -> "[FPS: $fps]"
+            "[FPS: {VALUE}]" -> "[Fps: $fps]"
             "{VALUE} FPS" -> "$fps Fps"
             "FPS: {VALUE}" -> "Fps: $fps"
             else -> {

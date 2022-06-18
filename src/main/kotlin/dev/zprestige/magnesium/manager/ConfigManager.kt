@@ -21,15 +21,17 @@ class ConfigManager {
                 writer.write("${f.name} HudComponent ${f.hudComponent!!.x} ${f.hudComponent!!.y}")
             }
             f.settings.forEach {
+                val fname = f.name.replace(" ", "_")
+                val name = it.name.replace(" ", "_")
                 when (it) {
                     is ColorBox -> {
-                        writer.write("${f.name} ${it.name} ${it.value.red},${it.value.green},${it.value.blue},${it.value.alpha}")
+                        writer.write("$fname $name ${it.value.red},${it.value.green},${it.value.blue},${it.value.alpha}")
                     }
                     is Keybind -> {
-                        writer.write("${f.name} ${it.name} ${it.value} ${it.hold}")
+                        writer.write("$fname $name ${it.value} ${it.hold}")
                     }
                     else -> {
-                        writer.write("${f.name} ${it.name} ${it.value}")
+                        writer.write("$fname $name ${it.value}")
                     }
                 }
             }
@@ -41,8 +43,8 @@ class ConfigManager {
         val reader = configFile.createReader()
         reader.lines().forEach { line ->
             val split = line.split(" ")
-            val feature = featureByName(split[0]) ?: return@forEach
-            val setting = settingByName(feature, split[1]) ?: return@forEach
+            val feature = featureByName(split[0].replace("_", " ")) ?: return@forEach
+            val setting = settingByName(feature, split[1].replace("_", " ")) ?: return@forEach
             val value1 = line.replace(split[0], "").replace(split[1], "")
             var value = ""
             var i = 0
