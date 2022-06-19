@@ -7,6 +7,7 @@
     "MixinClientWorld",
     "MixinGameRenderer",
     "MixinInGameHud",
+    "MixinInGameOverlayRenderer",
     "MixinKeyboard",
     "MixinMinecraftClient"
   ],

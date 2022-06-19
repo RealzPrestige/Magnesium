@@ -19,6 +19,7 @@ class FeatureManager {
             Fps(),
             FullBright(),
             Latency(),
+            LowFire(),
             NoHurtCam(),
             PotionEffects(),
             RemoveScoreboard(),
