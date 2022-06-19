@@ -1,6 +1,9 @@
 package dev.zprestige.magnesium.features.impl
 
 import dev.zprestige.magnesium.Main
+import dev.zprestige.magnesium.event.eventbus.EventListener
+import dev.zprestige.magnesium.event.eventbus.eventListener
+import dev.zprestige.magnesium.event.impl.StatusEffectOverlayEvent
 import dev.zprestige.magnesium.features.Feature
 import net.minecraft.client.util.math.MatrixStack
 import java.awt.Color
@@ -9,6 +12,7 @@ import java.util.concurrent.TimeUnit
 
 class PotionEffects : Feature("PotionEffects", "Displays which potions are active together with its amplifier and duration") {
     private val capitalized = inscribe("Capitalized", true).tab("Text")
+    private val removeDefaultIcons = inscribe("Remove Default Icons", true).tab("Rendering")
     private val shadow = inscribe("Shadow", true).tab("Rendering")
     private val scale = inscribe("Scale", 1.0f, 0.1f, 5.0f).tab("Rendering")
     private val color = inscribe("Color", Color.WHITE).tab("Rendering")
@@ -95,6 +99,13 @@ class PotionEffects : Feature("PotionEffects", "Displays which potions are activ
             }
             hudComponent!!.width = 5.0f
             hudComponent!!.height = 5.0f
+        }
+    }
+
+    @EventListener
+    fun onStatusEffectOverlay() = eventListener<StatusEffectOverlayEvent> {
+        if (removeDefaultIcons.value){
+            it.cancel()
         }
     }
 

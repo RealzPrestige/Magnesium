@@ -4,6 +4,7 @@ import dev.zprestige.magnesium.Main;
 import dev.zprestige.magnesium.event.impl.CrosshairEvent;
 import dev.zprestige.magnesium.event.impl.Render2DEvent;
 import dev.zprestige.magnesium.event.impl.RenderScoreboardEvent;
+import dev.zprestige.magnesium.event.impl.StatusEffectOverlayEvent;
 import net.minecraft.client.gui.hud.InGameHud;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.scoreboard.ScoreboardObjective;
@@ -39,6 +40,15 @@ public class MixinInGameHud {
     @Inject(method = "renderCrosshair", at = @At("HEAD"), cancellable = true)
     private void renderCrosshair(MatrixStack matrices, CallbackInfo callbackInfo){
         CrosshairEvent event = new CrosshairEvent();
+        Main.Companion.getEventBus().post(event);
+        if (event.getCancelled()){
+            callbackInfo.cancel();
+        }
+    }
+
+    @Inject(method = "renderStatusEffectOverlay", at = @At("HEAD"), cancellable = true)
+    private void renderStatusEffectOverlay(MatrixStack matrices, CallbackInfo callbackInfo){
+        StatusEffectOverlayEvent event = new StatusEffectOverlayEvent();
         Main.Companion.getEventBus().post(event);
         if (event.getCancelled()){
             callbackInfo.cancel();

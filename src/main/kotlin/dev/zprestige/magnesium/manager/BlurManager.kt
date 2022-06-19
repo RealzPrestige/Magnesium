@@ -24,7 +24,7 @@ class BlurManager {
         })
     }
 
-    fun blur(radius: Float) {
+    private fun blur(radius: Float) {
         blur.setUniformValue("Radius", radius)
     }
 
@@ -33,7 +33,7 @@ class BlurManager {
         updateBlur()
     }
 
-    private fun updateBlur() {
+    fun updateBlur() {
         if (mc.currentScreen != null){
             radius += ((5 - radius) / 20.0f)
         } else {
