@@ -23,6 +23,7 @@ class FeatureManager {
             PotionEffects(),
             RemoveScoreboard(),
             TimeChanger(),
+            TotemAnimation(),
             Zoom()
         )
         )
