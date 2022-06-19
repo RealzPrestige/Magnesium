@@ -8,8 +8,8 @@ import dev.zprestige.magnesium.event.impl.ZoomEvent
 import dev.zprestige.magnesium.features.Feature
 
 class Zoom : Feature("Zoom", "Zooms in by fov") {
-    private val zoomBind = inscribe("Zoom Bind", -1)
-    private val zoomedFov = inscribe("Zoomed Fov", 30.0f, 10.0f, 50.0f)
+    private val zoomBind = inscribe("Bind", -1)
+    private val zoomedFov = inscribe("Fov", 30.0f, 10.0f, 50.0f)
     private val animate = inscribe("Animate", false)
     private val animationSpeed = inscribe("Animation Speed", 1.0f, 0.1f, 10.0f)
     private val cinematic = inscribe("Cinematic", false)

@@ -44,54 +44,54 @@ class ConfigManager {
         reader.lines().forEach { line ->
             val split = line.split(" ")
             val feature = featureByName(split[0].replace("_", " ")) ?: return@forEach
-            val setting = settingByName(feature, split[1].replace("_", " ")) ?: return@forEach
-            val value1 = line.replace(split[0], "").replace(split[1], "")
-            var value = ""
-            var i = 0
-            value1.toCharArray().forEach {
-                if (i > 1) {
-                    value += it
-                }
-                i += 1
-            }
             if (split[1] == "HudComponent") {
                 val x = split[2].toFloat()
                 val y = split[3].toFloat()
                 feature.hudComponent!!.x = x
                 feature.hudComponent!!.y = y
-                println("${feature.name} ${feature.hudComponent!!.x} ${feature.hudComponent!!.y}")
-            } else {
-                if (setting.name == "Enabled") {
-                    if (value.toBoolean()) {
-                        feature.toggle()
-                    }
-                    return@forEach
+                return@forEach
+            }
+            val setting = settingByName(feature, split[1].replace("_", " ")) ?: return@forEach
+            var value = ""
+            var k = 0
+            val t = feature.name.length + setting.name.length + 1
+            for (char in line.toCharArray()) {
+                if (k <= t) {
+                    k++
+                } else {
+                    value += char
                 }
-                when (setting) {
-                    is ColorBox -> {
-                        val splitValue = value.split(",")
-                        setting.value = Color(splitValue[0].toInt(),
-                            splitValue[1].toInt(),
-                            splitValue[2].toInt(),
-                            splitValue[3].toInt()
-                        )
-                    }
-                    is Combo -> {
-                        setting.value = value
-                    }
-                    is Keybind -> {
-                        setting.value = value.split(" ")[0].toInt()
-                        setting.hold = split[3].toBoolean()
-                    }
-                    is SliderFloat -> {
-                        setting.value = value.toFloat()
-                    }
-                    is SliderInt -> {
-                        setting.value = value.toInt()
-                    }
-                    is Switch -> {
-                        setting.value = value.toBoolean()
-                    }
+            }
+            if (setting.name == "Enabled") {
+                if (value.toBoolean()) {
+                    feature.toggle()
+                }
+                return@forEach
+            }
+            when (setting) {
+                is ColorBox -> {
+                    val splitValue = value.split(",")
+                    setting.value = Color(splitValue[0].toInt(),
+                        splitValue[1].toInt(),
+                        splitValue[2].toInt(),
+                        splitValue[3].toInt()
+                    )
+                }
+                is Combo -> {
+                    setting.value = value
+                }
+                is Keybind -> {
+                    setting.value = value.split(" ")[0].toInt()
+                    setting.hold = value.split(" ")[1].toBoolean()
+                }
+                is SliderFloat -> {
+                    setting.value = value.toFloat()
+                }
+                is SliderInt -> {
+                    setting.value = value.toInt()
+                }
+                is Switch -> {
+                    setting.value = value.toBoolean()
                 }
             }
         }
