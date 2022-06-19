@@ -35,6 +35,7 @@ class Zoom : Feature("Zoom", "Zooms in by fov") {
                         if (animate.value) {
                             zoom -= zoom / (50.0f / animationSpeed.value)
                         }
+                        uncinematize()
                     }
                     it.fov -= (mc.options.fov - zoomedFov.value) * zoom
                 } else if (pressed) {
@@ -42,9 +43,10 @@ class Zoom : Feature("Zoom", "Zooms in by fov") {
                         cinematic()
                     }
                     it.fov = zoomedFov.value.toDouble()
+                } else {
+                    uncinematize()
                 }
             }
-            uncinematize()
         }
     }
 
@@ -61,7 +63,9 @@ class Zoom : Feature("Zoom", "Zooms in by fov") {
     }
 
     private fun uncinematize() {
-        mc.options.smoothCameraEnabled = false
-        smooth = false
+        if (smooth) {
+            mc.options.smoothCameraEnabled = false
+            smooth = false
+        }
     }
 }

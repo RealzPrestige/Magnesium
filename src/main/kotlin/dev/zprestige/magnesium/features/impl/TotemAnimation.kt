@@ -6,7 +6,7 @@ import dev.zprestige.magnesium.event.impl.FloatingItemEvent
 import dev.zprestige.magnesium.features.Feature
 
 class TotemAnimation : Feature("Totem Animation", "Changes the totem pop animation") {
-    private val animationSpeed = inscribe("Animation Speed", 1, 1, 5)
+    private val animationSpeed = inscribe("Animation Speed", 1, 0, 5)
 
     @EventListener
     fun onFloatingItem() = eventListener<FloatingItemEvent> {
