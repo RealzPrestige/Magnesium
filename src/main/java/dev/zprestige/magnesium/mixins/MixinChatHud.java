@@ -17,7 +17,7 @@ public abstract class MixinChatHud {
     protected abstract void addMessage(Text message, int messageId);
 
     @Inject(method = "addMessage(Lnet/minecraft/text/Text;)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/hud/ChatHud;addMessage(Lnet/minecraft/text/Text;I)V"), cancellable = true)
-    public void addMessage(Text message, CallbackInfo callbackInfo) {
+    private void addMessage(Text message, CallbackInfo callbackInfo) {
         AddMessageEvent event = new AddMessageEvent(message);
         Main.Companion.getEventBus().post(event);
         if (event.getCancelled()) {

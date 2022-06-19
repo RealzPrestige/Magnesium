@@ -22,6 +22,7 @@ class FeatureManager {
             LowFire(),
             NoHurtCam(),
             PotionEffects(),
+            RemoveDarkBackground(),
             RemoveScoreboard(),
             TimeChanger(),
             TotemAnimation(),

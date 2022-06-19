@@ -56,7 +56,7 @@ public abstract class MixinGameRenderer {
     private float lastSkyDarkness;
 
     @Inject(method = "getFov", at = @At("RETURN"), cancellable = true)
-    public void getFov(CallbackInfoReturnable<Double> callbackInfoReturnable) {
+    private void getFov(CallbackInfoReturnable<Double> callbackInfoReturnable) {
         ZoomEvent event = new ZoomEvent(callbackInfoReturnable.getReturnValue());
         Main.Companion.getEventBus().post(event);
         callbackInfoReturnable.setReturnValue(event.getFov());
@@ -68,7 +68,7 @@ public abstract class MixinGameRenderer {
     }
 
     @Inject(method = "bobViewWhenHurt", at = @At("HEAD"), cancellable = true)
-    public void bobViewWhenHurt(MatrixStack matrices, float tickDelta, CallbackInfo callbackInfo) {
+    private void bobViewWhenHurt(MatrixStack matrices, float tickDelta, CallbackInfo callbackInfo) {
         BobEvent event = new BobEvent();
         Main.Companion.getEventBus().post(event);
         if (event.getCancelled()) {

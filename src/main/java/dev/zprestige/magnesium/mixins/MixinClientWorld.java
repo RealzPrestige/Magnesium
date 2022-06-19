@@ -20,7 +20,7 @@ public class MixinClientWorld {
     @Shadow @Final private MinecraftClient client;
 
     @Inject(at = @At("TAIL"), method = "setTimeOfDay", cancellable = true)
-    public void setTimeOfDay(long time, CallbackInfo callbackInfo) {
+    private void setTimeOfDay(long time, CallbackInfo callbackInfo) {
         TimeEvent event = new TimeEvent(time);
         Main.Companion.getEventBus().post(event);
         if (event.getCancelled()){
