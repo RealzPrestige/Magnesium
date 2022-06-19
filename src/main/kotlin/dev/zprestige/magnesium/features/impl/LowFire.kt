@@ -11,7 +11,7 @@ class LowFire : Feature("Low Fire", "Lowers the overlay of fire") {
 
     @EventListener
     fun onFireOverlay() = eventListener<FireOverlayEvent> {
-        it.offset = offset.value
+        it.offset -= offset.value
         if (cancelOverlay.value){
             it.cancel()
         }
