@@ -17,6 +17,7 @@ class FeatureManager {
             ClickGui(),
             Coordinates(),
             Crosshair(),
+            FogModifier(),
             Fps(),
             FullBright(),
             Latency(),
