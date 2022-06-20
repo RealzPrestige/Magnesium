@@ -15,6 +15,7 @@ class FeatureManager {
             Armor(),
             Chat(),
             ClickGui(),
+            Coordinates(),
             Crosshair(),
             Fps(),
             FullBright(),
