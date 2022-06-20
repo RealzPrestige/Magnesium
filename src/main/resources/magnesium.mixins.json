@@ -6,6 +6,7 @@
     "MixinBackgroundRenderer",
     "MixinChatHud",
     "MixinClientWorld",
+    "MixinEndCrystalEntityRenderer",
     "MixinGameRenderer",
     "MixinHeldItemRenderer",
     "MixinInGameHud",

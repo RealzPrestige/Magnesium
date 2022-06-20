@@ -12,7 +12,7 @@ class Coordinates : Feature("Coordinates", "Displays your coordinates") {
         "XYZ {X}, {Y}, {Z} {BRACES}{OX}, {OZ}{BRACES}",
     )
     ).tab("Text")
-    private val braces = inscribe("Braces", "[", arrayOf("[", "("))
+    private val braces = inscribe("Braces", "[", arrayOf("[", "(")).tab("Text")
     private val capitalized = inscribe("Capitalized", true).tab("Text")
     private val shadow = inscribe("Shadow", true).tab("Rendering")
     private val scale = inscribe("Scale", 1.0f, 0.1f, 5.0f).tab("Rendering")
@@ -26,7 +26,6 @@ class Coordinates : Feature("Coordinates", "Displays your coordinates") {
         val x = round(mc.player!!.pos.x)
         val y = round(mc.player!!.pos.y)
         val z = round(mc.player!!.pos.z)
-        println(mc.world!!.dimension.coordinateScale)
         var factor = mc.world!!.dimension.coordinateScale
         if (factor == 1.0){
             factor = 0.125
