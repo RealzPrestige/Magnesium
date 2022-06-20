@@ -6,6 +6,7 @@
     "MixinChatHud",
     "MixinClientWorld",
     "MixinGameRenderer",
+    "MixinHeldItemRenderer",
     "MixinInGameHud",
     "MixinInGameOverlayRenderer",
     "MixinKeyboard",

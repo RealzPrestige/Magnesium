@@ -25,6 +25,7 @@ class FeatureManager {
             PotionEffects(),
             RemoveDarkBackground(),
             RemoveScoreboard(),
+            StaticItems(),
             TimeChanger(),
             TotemAnimation(),
             Zoom()
