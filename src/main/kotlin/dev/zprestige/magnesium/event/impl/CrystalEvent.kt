@@ -1,7 +1,6 @@
 package dev.zprestige.magnesium.event.impl
 
 import dev.zprestige.magnesium.event.eventbus.Event
-import java.awt.Color
 
 open class CrystalEvent : Event(true) {
 
@@ -11,5 +10,5 @@ open class CrystalEvent : Event(true) {
 
     class Bounce(var bounceSpeed: Float) : CrystalEvent()
 
-    class Texture(var color: Color) : CrystalEvent()
+    class Texture(var red: Float, var green: Float, var blue: Float, var alpha: Float) : CrystalEvent()
 }

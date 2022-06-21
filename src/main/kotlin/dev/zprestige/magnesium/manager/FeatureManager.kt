@@ -18,7 +18,6 @@ class FeatureManager {
             Coordinates(),
             Crosshair(),
             CrystalModifier(),
-            FogModifier(),
             Fps(),
             FullBright(),
             Latency(),

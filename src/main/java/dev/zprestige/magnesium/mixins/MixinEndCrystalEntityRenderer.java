@@ -22,8 +22,6 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.invoke.arg.Args;
 
-import java.awt.*;
-
 @Mixin(EndCrystalEntityRenderer.class)
 public class MixinEndCrystalEntityRenderer {
     @Mutable
@@ -45,7 +43,7 @@ public class MixinEndCrystalEntityRenderer {
 
     @Inject(method = "render(Lnet/minecraft/entity/decoration/EndCrystalEntity;FFLnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/client/render/VertexConsumerProvider;I)V", at = @At("HEAD"))
     private void render(EndCrystalEntity endCrystalEntity, float f, float g, MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i, CallbackInfo ci) {
-        CrystalEvent.Texture event = new CrystalEvent.Texture(Color.WHITE);
+        CrystalEvent.Texture event = new CrystalEvent.Texture(1.0f, 1.0f, 1.0f, 1.0f);
         Main.Companion.getEventBus().post(event);
         END_CRYSTAL = RenderLayer.getEntityTranslucent(event.getCancelled() ? new Identifier("magnesium", "textures/blank.png") : TEXTURE);
     }
@@ -82,10 +80,10 @@ public class MixinEndCrystalEntityRenderer {
 
     @Redirect(method = "render(Lnet/minecraft/entity/decoration/EndCrystalEntity;FFLnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/client/render/VertexConsumerProvider;I)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/model/ModelPart;render(Lnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/client/render/VertexConsumer;II)V", ordinal = 3))
     private void modifyCore(ModelPart modelPart, MatrixStack matrices, VertexConsumer vertices, int light, int overlay) {
-        CrystalEvent.Texture event = new CrystalEvent.Texture(Color.WHITE);
+        CrystalEvent.Texture event = new CrystalEvent.Texture(1.0f, 1.0f, 1.0f, 1.0f);
         Main.Companion.getEventBus().post(event);
         if (event.getCancelled()){
-            core.render(matrices, vertices, light, overlay, event.getColor().getRed(), event.getColor().getGreen(), event.getColor().getBlue(), event.getColor().getAlpha());
+            core.render(matrices, vertices, light, overlay, event.getRed(), event.getGreen(), event.getBlue(), event.getAlpha());
         } else {
             core.render(matrices, vertices, light, overlay);
         }
@@ -93,22 +91,22 @@ public class MixinEndCrystalEntityRenderer {
     }
 
     @Redirect(method = "render(Lnet/minecraft/entity/decoration/EndCrystalEntity;FFLnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/client/render/VertexConsumerProvider;I)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/model/ModelPart;render(Lnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/client/render/VertexConsumer;II)V", ordinal = 1))
-    private void modifyFrame1(ModelPart modelPart, MatrixStack matrices, VertexConsumer vertices, int light, int overlay) {
-        CrystalEvent.Texture event = new CrystalEvent.Texture(Color.WHITE);
+    private void colorFrame1(ModelPart modelPart, MatrixStack matrices, VertexConsumer vertices, int light, int overlay) {
+        CrystalEvent.Texture event = new CrystalEvent.Texture(1.0f, 1.0f, 1.0f, 1.0f);
         Main.Companion.getEventBus().post(event);
         if (event.getCancelled()){
-            frame.render(matrices, vertices, light, overlay, event.getColor().getRed(), event.getColor().getGreen(), event.getColor().getBlue(), event.getColor().getAlpha());
+            frame.render(matrices, vertices, light, overlay, event.getRed(), event.getGreen(), event.getBlue(), event.getAlpha());
         } else {
             frame.render(matrices, vertices, light, overlay);
         }
     }
 
     @Redirect(method = "render(Lnet/minecraft/entity/decoration/EndCrystalEntity;FFLnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/client/render/VertexConsumerProvider;I)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/model/ModelPart;render(Lnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/client/render/VertexConsumer;II)V", ordinal = 2))
-    private void modifyFrame2(ModelPart modelPart, MatrixStack matrices, VertexConsumer vertices, int light, int overlay) {
-        CrystalEvent.Texture event = new CrystalEvent.Texture(Color.WHITE);
+    private void colorFrame2(ModelPart modelPart, MatrixStack matrices, VertexConsumer vertices, int light, int overlay) {
+        CrystalEvent.Texture event = new CrystalEvent.Texture(1.0f, 1.0f, 1.0f, 1.0f);
         Main.Companion.getEventBus().post(event);
         if (event.getCancelled()){
-            frame.render(matrices, vertices, light, overlay, event.getColor().getRed(), event.getColor().getGreen(), event.getColor().getBlue(), event.getColor().getAlpha());
+            frame.render(matrices, vertices, light, overlay, event.getRed(), event.getGreen(), event.getBlue(), event.getAlpha());
         } else {
             frame.render(matrices, vertices, light, overlay);
         }

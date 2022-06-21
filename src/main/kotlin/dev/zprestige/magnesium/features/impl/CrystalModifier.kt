@@ -30,4 +30,15 @@ class CrystalModifier : Feature("Crystal Modifier", "Modifies the way end crysta
         it.cancel()
         it.bounceSpeed = bounceSpeed.value
     }
+
+    @EventListener
+    fun onCrystalTexture() = eventListener<CrystalEvent.Texture> {
+        if (emptyTexture.value) {
+            it.cancel()
+            it.red = colorCrystal.value.red / 255.0f
+            it.green = colorCrystal.value.green / 255.0f
+            it.blue = colorCrystal.value.blue / 255.0f
+            it.alpha = colorCrystal.value.alpha / 255.0f
+        }
+    }
 }
