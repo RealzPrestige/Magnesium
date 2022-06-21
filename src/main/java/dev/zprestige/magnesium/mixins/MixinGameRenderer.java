@@ -1,22 +1,14 @@
 package dev.zprestige.magnesium.mixins;
 
 import dev.zprestige.magnesium.Main;
-import dev.zprestige.magnesium.event.impl.BobEvent;
-import dev.zprestige.magnesium.event.impl.FloatingItemEvent;
-import dev.zprestige.magnesium.event.impl.Render3DEvent;
-import dev.zprestige.magnesium.event.impl.ZoomEvent;
+import dev.zprestige.magnesium.event.impl.*;
 import net.minecraft.client.render.Camera;
 import net.minecraft.client.render.GameRenderer;
-import net.minecraft.client.render.LightmapTextureManager;
-import net.minecraft.client.render.item.HeldItemRenderer;
 import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.item.ItemStack;
-import org.jetbrains.annotations.Nullable;
-import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.Shadow;
-import org.spongepowered.asm.mixin.injection.*;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
@@ -52,5 +44,15 @@ public class MixinGameRenderer {
         FloatingItemEvent event = new FloatingItemEvent(0);
         Main.Companion.getEventBus().post(event);
         floatingItemTimeLeft -= event.getSpeed();
+    }
+
+    @Inject(method = "renderHand", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/render/item/HeldItemRenderer;renderItem(FLnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/client/render/VertexConsumerProvider$Immediate;Lnet/minecraft/client/network/ClientPlayerEntity;I)V"))
+    private void translateItem(MatrixStack matrices, Camera camera, float tickDelta, CallbackInfo callbackInfo) {
+        RenderHandEvent event = new RenderHandEvent(0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f);
+        Main.Companion.getEventBus().post(event);
+        if (event.getCancelled()) {
+            matrices.translate(event.getX(), event.getY(), event.getZ());
+            matrices.scale(event.getScaleX(), event.getScaleY(), event.getScaleZ());
+        }
     }
 }

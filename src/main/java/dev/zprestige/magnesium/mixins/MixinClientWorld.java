@@ -1,7 +1,6 @@
 package dev.zprestige.magnesium.mixins;
 
 import dev.zprestige.magnesium.Main;
-import dev.zprestige.magnesium.event.impl.ColorFogEvent;
 import dev.zprestige.magnesium.event.impl.TimeEvent;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.world.ClientWorld;
@@ -32,12 +31,4 @@ public class MixinClientWorld {
         clientWorldProperties.setTimeOfDay(event.getTime());
     }
 
-    @Inject(method = "getSkyColor", at = @At("HEAD"), cancellable = true)
-    private void onGetSkyColor(Vec3d cameraPos, float tickDelta, CallbackInfoReturnable<Vec3d> info) {
-        ColorFogEvent event = new ColorFogEvent(0.0f, 0.0f, 0.0f);
-        Main.Companion.getEventBus().post(event);
-        if (event.getCancelled()) {
-            info.setReturnValue(new Vec3d(0.0f, 1.0f, 1.0f));
-        }
-    }
 }

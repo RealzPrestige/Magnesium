@@ -20,6 +20,7 @@ class FeatureManager {
             CrystalModifier(),
             Fps(),
             FullBright(),
+            HandTransform(),
             Latency(),
             LowFire(),
             NoHurtCam(),
