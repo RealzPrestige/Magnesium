@@ -4,11 +4,14 @@ import dev.zprestige.magnesium.event.eventbus.EventListener
 import dev.zprestige.magnesium.event.eventbus.eventListener
 import dev.zprestige.magnesium.event.impl.CrystalEvent
 import dev.zprestige.magnesium.features.Feature
+import java.awt.Color
 
 class CrystalModifier : Feature("Crystal Modifier", "Modifies the way end crystals look") {
     private val scale = inscribe("Scale", 1.0f, 0.1f, 1.5f)
     private val rotationSpeed = inscribe("Rotation Speed", 1.0f, 0.0f, 5.0f)
     private val bounceSpeed = inscribe("Bounce Speed", 1.0f, 0.0f, 2.0f)
+    private val emptyTexture = inscribe("Empty Texture", false)
+    private val colorCrystal = inscribe("Color Crystal", Color.WHITE)
 
     @EventListener
     fun onCrystalScale() = eventListener<CrystalEvent.Scale> {

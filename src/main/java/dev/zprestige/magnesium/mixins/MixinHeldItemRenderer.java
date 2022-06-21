@@ -12,7 +12,7 @@ import org.spongepowered.asm.mixin.injection.invoke.arg.Args;
 @Mixin(HeldItemRenderer.class)
 public class MixinHeldItemRenderer {
 
-    @ModifyArgs(method = "renderItem(FLnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/client/render/VertexConsumerProvider$Immediate;Lnet/minecraft/client/network/ClientPlayerEntity;I)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/util/math/MatrixStack;multiply(Lnet/minecraft/util/math/Quaternion;)V", ordinal = -1))
+    @ModifyArgs(method = "renderItem(FLnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/client/render/VertexConsumerProvider$Immediate;Lnet/minecraft/client/network/ClientPlayerEntity;I)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/util/math/MatrixStack;multiply(Lnet/minecraft/util/math/Quaternion;)V"))
     public void modifyPrevRotations(Args args) {
         AnimateHeldItemsEvent event = new AnimateHeldItemsEvent();
         Main.Companion.getEventBus().post(event);
