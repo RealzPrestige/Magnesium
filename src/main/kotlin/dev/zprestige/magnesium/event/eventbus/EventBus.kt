@@ -16,13 +16,13 @@ open class EventBus {
 
     fun unregister(any: Any) {
         val c = any::class
-        if (!registeredClasses.contains(c)) {
+        if (registeredClasses.contains(c)) {
             registeredClasses.remove(c)
         }
     }
 
     fun invoke(event: Event){
-        registeredClasses.entries.forEach { entry ->
+        HashMap<KClass<*>, List<EventListener>>(registeredClasses).entries.forEach { entry ->
             if (!event.cancelled){
                 entry.value
                     .filter { it.target == event::class }

@@ -9,7 +9,7 @@ class FullBright : Feature("FullBright", "Sets brightness to the maximum to be a
 
     @Listener
     fun onTick() = registerListener<TickEvent> {
-        if (mc.options.gamma != 10000.0) {
+        if (nullCheck() && mc.options.gamma != 10000.0) {
             mc.options.gamma = 10000.0
         }
     }

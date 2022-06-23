@@ -1,6 +1,7 @@
 package dev.zprestige.magnesium
 
 import dev.zprestige.magnesium.event.eventbus.EventBus
+import dev.zprestige.magnesium.event.impl.TickEvent
 import dev.zprestige.magnesium.manager.*
 import net.fabricmc.api.ModInitializer
 import net.minecraft.client.MinecraftClient
