@@ -1,19 +1,20 @@
 package dev.zprestige.magnesium.manager
 
 import dev.zprestige.magnesium.Main
-import dev.zprestige.magnesium.event.eventbus.EventListener
-import dev.zprestige.magnesium.event.eventbus.eventListener
+import dev.zprestige.magnesium.event.eventbus.Listener
+import dev.zprestige.magnesium.event.eventbus.registerListener
+
 import dev.zprestige.magnesium.event.impl.KeyEvent
 
 class KeyManager {
     private val heldKeys = ArrayList<Int>()
 
     init {
-        Main.eventBus.subscribe(this)
+        Main.eventBus.register(this)
     }
 
-    @EventListener
-    fun onPress() = eventListener<KeyEvent.Press> { it ->
+    @Listener
+    fun onPress() = registerListener<KeyEvent.Press> { it ->
         val key = it.key
         Main.featureManager.features.filter {
             it.keybind.hold && it.keybind.value == key
@@ -22,8 +23,8 @@ class KeyManager {
         }
     }
 
-    @EventListener
-    fun onRelease() = eventListener<KeyEvent.Release> { it ->
+    @Listener
+    fun onRelease() = registerListener<KeyEvent.Release> { it ->
         val key = it.key
         Main.featureManager.features.filter {
             it.keybind.hold && it.keybind.value == key
@@ -32,14 +33,14 @@ class KeyManager {
         }
     }
 
-    @EventListener
-    fun onKey() = eventListener<KeyEvent> {
+    @Listener
+    fun onKey() = registerListener<KeyEvent> {
         if (heldKeys.contains(it.key) && it.action == 0) {
-            Main.eventBus.post(KeyEvent.Release(it.key))
+            Main.eventBus.invoke(KeyEvent.Release(it.key))
             heldKeys.remove(it.key)
         }
         if (!heldKeys.contains(it.key) && (it.action == 2 || it.action == 1)) {
-            Main.eventBus.post(KeyEvent.Press(it.key))
+            Main.eventBus.invoke(KeyEvent.Press(it.key))
             heldKeys.add(it.key)
         }
     }

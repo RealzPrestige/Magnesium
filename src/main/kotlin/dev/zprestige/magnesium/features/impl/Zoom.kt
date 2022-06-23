@@ -1,8 +1,9 @@
 package dev.zprestige.magnesium.features.impl
 
 import dev.zprestige.magnesium.Main
-import dev.zprestige.magnesium.event.eventbus.EventListener
-import dev.zprestige.magnesium.event.eventbus.eventListener
+import dev.zprestige.magnesium.event.eventbus.Listener
+import dev.zprestige.magnesium.event.eventbus.registerListener
+
 import dev.zprestige.magnesium.event.impl.KeyEvent
 import dev.zprestige.magnesium.event.impl.ZoomEvent
 import dev.zprestige.magnesium.features.Feature
@@ -17,8 +18,8 @@ class Zoom : Feature("Zoom", "Zooms in by fov") {
     private var pressed = false
     private var smooth = false
 
-    @EventListener
-    fun onZoom() = eventListener<ZoomEvent> {
+    @Listener
+    fun onZoom() = registerListener<ZoomEvent> {
         if (mc.currentScreen == null) {
             if (zoomBind.value != -1) {
                 if (zoomBind.hold) {
@@ -50,8 +51,8 @@ class Zoom : Feature("Zoom", "Zooms in by fov") {
         }
     }
 
-    @EventListener
-    fun onPress() = eventListener<KeyEvent.Press> {
+    @Listener
+    fun onPress() = registerListener<KeyEvent.Press> {
         if (it.key == zoomBind.value) {
             pressed = !pressed
         }

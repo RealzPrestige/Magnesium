@@ -1,7 +1,8 @@
 package dev.zprestige.magnesium.features.impl
 
-import dev.zprestige.magnesium.event.eventbus.EventListener
-import dev.zprestige.magnesium.event.eventbus.eventListener
+
+import dev.zprestige.magnesium.event.eventbus.Listener
+import dev.zprestige.magnesium.event.eventbus.registerListener
 import dev.zprestige.magnesium.event.impl.CrystalEvent
 import dev.zprestige.magnesium.features.Feature
 import java.awt.Color
@@ -13,28 +14,28 @@ class CrystalModifier : Feature("Crystal Modifier", "Modifies the way end crysta
     private val emptyTexture = inscribe("Empty Texture", false)
     private val colorCrystal = inscribe("Color Crystal", Color.WHITE)
 
-    @EventListener
-    fun onCrystalScale() = eventListener<CrystalEvent.Scale> {
-        it.cancel()
+    @Listener
+    fun onCrystalScale() = registerListener<CrystalEvent.Scale> {
+        it.cancelled = true
         it.scale = scale.value
     }
 
-    @EventListener
-    fun onCrystalRotation() = eventListener<CrystalEvent.Rotation> {
-        it.cancel()
+    @Listener
+    fun onCrystalRotation() = registerListener<CrystalEvent.Rotation> {
+        it.cancelled = true
         it.rotationSpeed = rotationSpeed.value
     }
 
-    @EventListener
-    fun onCrystalBounce() = eventListener<CrystalEvent.Bounce> {
-        it.cancel()
+    @Listener
+    fun onCrystalBounce() = registerListener<CrystalEvent.Bounce> {
+        it.cancelled = true
         it.bounceSpeed = bounceSpeed.value
     }
 
-    @EventListener
-    fun onCrystalTexture() = eventListener<CrystalEvent.Texture> {
+    @Listener
+    fun onCrystalTexture() = registerListener<CrystalEvent.Texture> {
         if (emptyTexture.value) {
-            it.cancel()
+            it.cancelled = true
             it.red = colorCrystal.value.red / 255.0f
             it.green = colorCrystal.value.green / 255.0f
             it.blue = colorCrystal.value.blue / 255.0f

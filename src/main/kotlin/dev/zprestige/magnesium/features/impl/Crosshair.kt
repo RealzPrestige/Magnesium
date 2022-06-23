@@ -1,7 +1,7 @@
 package dev.zprestige.magnesium.features.impl
 
-import dev.zprestige.magnesium.event.eventbus.EventListener
-import dev.zprestige.magnesium.event.eventbus.eventListener
+import dev.zprestige.magnesium.event.eventbus.Listener
+import dev.zprestige.magnesium.event.eventbus.registerListener
 import dev.zprestige.magnesium.event.impl.CrosshairEvent
 import dev.zprestige.magnesium.event.impl.Render2DEvent
 import dev.zprestige.magnesium.features.Feature
@@ -14,13 +14,13 @@ class Crosshair : Feature("Crosshair", "Changes the look of your crosshair") {
     private val gap = inscribe("Gap", 1.0f, 0.1f, 5.0f)
     private val color = inscribe("Color", Color.WHITE)
 
-    @EventListener
-    fun onCrosshair() = eventListener<CrosshairEvent> {
-        it.cancel()
+    @Listener
+    fun onCrosshair() = registerListener<CrosshairEvent> {
+        it.cancelled = true
     }
 
-    @EventListener
-    fun onRender2D() = eventListener<Render2DEvent> {
+    @Listener
+    fun onRender2D() = registerListener<Render2DEvent> {
         val matrices = it.matrixStack
         val centerX = it.scaledWidth / 2.0f
         val centerY = it.scaledHeight / 2.0f

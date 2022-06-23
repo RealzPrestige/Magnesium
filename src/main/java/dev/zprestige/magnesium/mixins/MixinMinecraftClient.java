@@ -13,6 +13,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public class MixinMinecraftClient {
     @Inject(method = "tick", at = @At("HEAD"))
     private void tick(CallbackInfo callbackInfo) {
-        Main.Companion.getEventBus().post(new TickEvent());
+        Main.Companion.getEventBus().invoke(new TickEvent());
     }
 }

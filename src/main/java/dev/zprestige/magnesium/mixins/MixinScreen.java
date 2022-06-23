@@ -15,7 +15,7 @@ public class MixinScreen {
     @Inject(method = "renderBackground(Lnet/minecraft/client/util/math/MatrixStack;I)V", at = @At("HEAD"), cancellable = true)
     private void renderBackground(MatrixStack matrices, int vOffset, CallbackInfo callbackInfo){
         BackgroundEvent event = new BackgroundEvent();
-        Main.Companion.getEventBus().post(event);
+        Main.Companion.getEventBus().invoke(event);
         if (event.getCancelled()) {
             callbackInfo.cancel();
         }

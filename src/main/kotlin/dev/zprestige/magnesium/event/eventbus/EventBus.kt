@@ -1,36 +1,44 @@
 package dev.zprestige.magnesium.event.eventbus
 
-import java.util.concurrent.ConcurrentHashMap
 import kotlin.reflect.KClass
+import kotlin.reflect.full.*
 
 open class EventBus {
-    private val listeners = ConcurrentHashMap<KClass<*>, ListenerGroup>()
-    private val subscribers = ConcurrentHashMap.newKeySet<Any>()
-    private val cache = ConcurrentHashMap<Any, List<Listener>?>()
+    private val registeredClasses = HashMap<KClass<*>, List<EventListener>>()
 
-    fun subscribe(subscriber: Any): Boolean = subscribers.add(subscriber).also {
-        if (it) cache.computeIfAbsent(subscriber) {
-            getListeners(subscriber)
-        }?.forEach(::register) ?: return false
-    }
-
-    fun unsubscribe(subscriber: Any): Boolean = subscribers.remove(subscriber).also {
-        if (it) cache[subscriber]?.forEach(::unregister)
-    }
-
-    private fun register(listener: Listener): Boolean = listeners.computeIfAbsent(listener.type) {
-        ListenerGroup(it)
-    }.register(listener)
-
-    private fun unregister(listener: Listener): Boolean = listeners[listener.type]?.let {
-        val contained = it.unregister(listener)
-        if (it.parallel.isEmpty() && it.sequential.isEmpty()) {
-            listeners.remove(listener.type)
+    fun register(any: Any) {
+        val c = any::class
+        if (!registeredClasses.contains(c)) {
+            registeredClasses[c] = listeners(any)
         }
-        contained
-    } ?: false
+    }
 
-    fun post(event: Any): Boolean = listeners[event::class]?.post(event) ?: false
 
+    fun unregister(any: Any) {
+        val c = any::class
+        if (!registeredClasses.contains(c)) {
+            registeredClasses.remove(c)
+        }
+    }
+
+    fun invoke(event: Event){
+        registeredClasses.entries.forEach { entry ->
+            if (!event.cancelled){
+                entry.value
+                    .filter { it.target == event::class }
+                    .forEach {
+                        it.invokeFunction(event)
+                    }
+            }
+        }
+    }
+
+    private fun listeners(any: Any): List<EventListener> {
+        val arrayList: ArrayList<EventListener> = ArrayList()
+        val c = any::class
+        c.declaredFunctions
+            .filter { it.hasAnnotation<Listener>() }
+            .mapTo(arrayList) { it.call(any) as EventListener }
+        return arrayList
+    }
 }
-

@@ -15,7 +15,7 @@ public class MixinKeyboard {
     private void onKey(long window, int key, int scancode, int action, int modifiers, CallbackInfo callbackInfo){
         if (key != -1) {
             KeyEvent event = new KeyEvent(key, action);
-            Main.Companion.getEventBus().post(event);
+            Main.Companion.getEventBus().invoke(event);
         }
     }
 }

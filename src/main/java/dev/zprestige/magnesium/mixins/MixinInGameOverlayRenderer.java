@@ -16,7 +16,7 @@ public class MixinInGameOverlayRenderer {
     @Inject(method = "renderFireOverlay", at =@At(value = "INVOKE", target = "Lnet/minecraft/client/util/math/MatrixStack;translate(DDD)V"), cancellable = true)
     private static void renderFireOverlay(MinecraftClient client, MatrixStack matrices, CallbackInfo ci){
         FireOverlayEvent event = new FireOverlayEvent(0.0f);
-        Main.Companion.getEventBus().post(event);
+        Main.Companion.getEventBus().invoke(event);
         if (event.getCancelled()){
             ci.cancel();
             return;

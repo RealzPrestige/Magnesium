@@ -22,13 +22,13 @@ open class Feature(var name: String, var description: String) {
     }
 
     fun enable() {
-        Main.eventBus.subscribe(this)
+        Main.eventBus.register(this)
         onEnable()
         enabled.value = true
     }
 
     fun disable() {
-        Main.eventBus.unsubscribe(this)
+        Main.eventBus.unregister(this)
         onDisable()
         enabled.value = false
     }

@@ -25,13 +25,13 @@ public class MixinInGameHud {
 
     @Inject(method = "render", at = @At("TAIL"))
     private void onRender(MatrixStack matrixStack, float tickDelta, CallbackInfo callbackInfo) {
-        Main.Companion.getEventBus().post(new Render2DEvent(matrixStack, scaledWidth, scaledHeight));
+        Main.Companion.getEventBus().invoke(new Render2DEvent(matrixStack, scaledWidth, scaledHeight));
     }
 
     @Inject(method = "renderScoreboardSidebar", at = @At("HEAD"), cancellable = true)
     private void renderScoreboardSidebar(MatrixStack matrices, ScoreboardObjective objective, CallbackInfo ci) {
         RenderScoreboardEvent event = new RenderScoreboardEvent();
-        Main.Companion.getEventBus().post(event);
+        Main.Companion.getEventBus().invoke(event);
         if (event.getCancelled()) {
             ci.cancel();
         }
@@ -40,7 +40,7 @@ public class MixinInGameHud {
     @Inject(method = "renderCrosshair", at = @At("HEAD"), cancellable = true)
     private void renderCrosshair(MatrixStack matrices, CallbackInfo callbackInfo){
         CrosshairEvent event = new CrosshairEvent();
-        Main.Companion.getEventBus().post(event);
+        Main.Companion.getEventBus().invoke(event);
         if (event.getCancelled()){
             callbackInfo.cancel();
         }
@@ -49,7 +49,7 @@ public class MixinInGameHud {
     @Inject(method = "renderStatusEffectOverlay", at = @At("HEAD"), cancellable = true)
     private void renderStatusEffectOverlay(MatrixStack matrices, CallbackInfo callbackInfo){
         StatusEffectOverlayEvent event = new StatusEffectOverlayEvent();
-        Main.Companion.getEventBus().post(event);
+        Main.Companion.getEventBus().invoke(event);
         if (event.getCancelled()){
             callbackInfo.cancel();
         }

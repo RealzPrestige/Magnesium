@@ -13,7 +13,6 @@ class Main : ModInitializer {
     override fun onInitialize() {
         configManager.load()
         Logger.info("Started initializing")
-        eventBus.subscribe(blurManager)
         Runtime.getRuntime().addShutdownHook(Thread {
             configManager.save()
         })

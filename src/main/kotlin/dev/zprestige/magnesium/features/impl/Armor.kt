@@ -1,11 +1,9 @@
 package dev.zprestige.magnesium.features.impl
 
-import com.mojang.blaze3d.platform.GlStateManager
+import dev.zprestige.magnesium.event.eventbus.Listener
+import dev.zprestige.magnesium.event.eventbus.registerListener
 import dev.zprestige.magnesium.Main
-import dev.zprestige.magnesium.event.eventbus.EventListener
-import dev.zprestige.magnesium.event.eventbus.eventListener
 import dev.zprestige.magnesium.event.impl.Render2DEvent
-import dev.zprestige.magnesium.event.impl.Render3DEvent
 import dev.zprestige.magnesium.features.Feature
 import net.minecraft.item.ItemStack
 import java.awt.Color
@@ -22,8 +20,8 @@ class Armor : Feature("Armor", "Displays armor with durability") {
         hudComponent = HudComponent(0.0f, 0.0f, 0.0f, 0.0f)
     }
 
-    @EventListener
-    fun onRender2D() = eventListener<Render2DEvent> {
+    @Listener
+    fun onRender2D() = registerListener<Render2DEvent> {
         val matrices = it.matrixStack
         val itemRenderer = mc.itemRenderer
         var deltaX = 0.0f
@@ -32,13 +30,13 @@ class Armor : Feature("Armor", "Displays armor with durability") {
         if (reversed.value) {
             armorItems = armorItems.reversed()
         }
-        val addY = if (fixUnderWater.value && mc.player!!.isSubmergedInWater){
+        val addY = if (fixUnderWater.value && mc.player!!.isSubmergedInWater) {
             10.0f
         } else {
             0.0f
         }
         val horizontal = renderMode.value == "Horizontal"
-        val addX = if(horizontal){
+        val addX = if (horizontal) {
             10.0f
         } else {
             8.0f
@@ -48,10 +46,10 @@ class Armor : Feature("Armor", "Displays armor with durability") {
                 val percentage = ceil(getPercentage(armor))
                 val color = Color(redByPercentage(percentage), greenByPercentage(percentage), 0.0f)
                 var percentage1 = percentage.toString()
-                if (removeDecimal.value){
+                if (removeDecimal.value) {
                     percentage1 = percentage.toString().replace(".0", "")
                 }
-                val icon = if (removePercentage.value){
+                val icon = if (removePercentage.value) {
                     ""
                 } else {
                     "%"
@@ -65,18 +63,21 @@ class Armor : Feature("Armor", "Displays armor with durability") {
                     color
                 ).pop()
             }
-            itemRenderer.renderGuiItemIcon(armor, (hudComponent!!.x + deltaX).toInt(), (hudComponent!!.y + deltaY - addY).toInt() )
-            when (renderMode.value){
+            itemRenderer.renderGuiItemIcon(armor,
+                (hudComponent!!.x + deltaX).toInt(),
+                (hudComponent!!.y + deltaY - addY).toInt()
+            )
+            when (renderMode.value) {
                 "Horizontal" -> deltaX += 20.0f
                 "Vertical" -> deltaY += 20.0f
             }
         }
-        hudComponent!!.width = if (horizontal){
+        hudComponent!!.width = if (horizontal) {
             deltaX
         } else {
             16.0f
         }
-        hudComponent!!.height = if (horizontal){
+        hudComponent!!.height = if (horizontal) {
             16.0f
         } else {
             deltaY

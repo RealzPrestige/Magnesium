@@ -1,8 +1,8 @@
 package dev.zprestige.magnesium.features.impl
 
 import dev.zprestige.magnesium.Main
-import dev.zprestige.magnesium.event.eventbus.EventListener
-import dev.zprestige.magnesium.event.eventbus.eventListener
+import dev.zprestige.magnesium.event.eventbus.Listener
+import dev.zprestige.magnesium.event.eventbus.registerListener
 import dev.zprestige.magnesium.event.impl.StatusEffectOverlayEvent
 import dev.zprestige.magnesium.features.Feature
 import net.minecraft.client.util.math.MatrixStack
@@ -102,10 +102,10 @@ class PotionEffects : Feature("PotionEffects", "Displays which potions are activ
         }
     }
 
-    @EventListener
-    fun onStatusEffectOverlay() = eventListener<StatusEffectOverlayEvent> {
+    @Listener
+    fun onStatusEffectOverlay() = registerListener<StatusEffectOverlayEvent> {
         if (removeDefaultIcons.value){
-            it.cancel()
+            it.cancelled = true
         }
     }
 

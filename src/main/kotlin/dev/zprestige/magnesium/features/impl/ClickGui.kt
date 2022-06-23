@@ -1,12 +1,10 @@
 package dev.zprestige.magnesium.features.impl
-
+import dev.zprestige.magnesium.event.eventbus.Listener
+import dev.zprestige.magnesium.event.eventbus.registerListener
 import dev.zprestige.magnesium.Main
-import dev.zprestige.magnesium.event.eventbus.EventListener
-import dev.zprestige.magnesium.event.eventbus.eventListener
+
 import dev.zprestige.magnesium.event.impl.TickEvent
 import dev.zprestige.magnesium.features.Feature
-import net.minecraft.client.particle.TotemParticle
-import net.minecraft.item.Items
 
 class ClickGui : Feature("ClickGui", "Displays the Magnesium client's clickgui") {
     companion object {
@@ -30,8 +28,8 @@ class ClickGui : Feature("ClickGui", "Displays the Magnesium client's clickgui")
         Main.configManager.save()
     }
 
-    @EventListener
-    fun onTick() = eventListener<TickEvent> {
+    @Listener
+    fun onTick() = registerListener<TickEvent> {
         if (mc.currentScreen == null){
             disable()
         }

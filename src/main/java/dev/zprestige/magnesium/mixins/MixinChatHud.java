@@ -13,7 +13,7 @@ public abstract class MixinChatHud {
     @Inject(method = "clear", at = @At("HEAD"), cancellable = true)
     private void clear(boolean clearHistory, CallbackInfo callbackInfo) {
         ClearChatEvent event = new ClearChatEvent();
-        Main.Companion.getEventBus().post(event);
+        Main.Companion.getEventBus().invoke(event);
         if (event.getCancelled()) {
             callbackInfo.cancel();
         }

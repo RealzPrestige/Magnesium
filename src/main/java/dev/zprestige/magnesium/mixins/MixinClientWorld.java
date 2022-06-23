@@ -23,7 +23,7 @@ public class MixinClientWorld {
     @Inject(at = @At("TAIL"), method = "setTimeOfDay", cancellable = true)
     private void setTimeOfDay(long time, CallbackInfo callbackInfo) {
         TimeEvent event = new TimeEvent(time);
-        Main.Companion.getEventBus().post(event);
+        Main.Companion.getEventBus().invoke(event);
         if (event.getCancelled()){
             callbackInfo.cancel();
             return;

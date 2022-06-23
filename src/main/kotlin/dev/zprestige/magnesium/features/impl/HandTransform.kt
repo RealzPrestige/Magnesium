@@ -1,7 +1,7 @@
 package dev.zprestige.magnesium.features.impl
 
-import dev.zprestige.magnesium.event.eventbus.EventListener
-import dev.zprestige.magnesium.event.eventbus.eventListener
+import dev.zprestige.magnesium.event.eventbus.Listener
+import dev.zprestige.magnesium.event.eventbus.registerListener
 import dev.zprestige.magnesium.event.impl.RenderHandEvent
 import dev.zprestige.magnesium.features.Feature
 
@@ -14,9 +14,9 @@ class HandTransform : Feature("Hand Transform", "Transforms the look of your ite
     private val scaleZ = inscribe("Scale z", 1.0f, 0.1f, 2.0f)
 
 
-    @EventListener
-    fun onRenderHand() = eventListener<RenderHandEvent> {
-        it.cancel()
+    @Listener
+    fun onRenderHand() = registerListener<RenderHandEvent> {
+        it.cancelled = true
         it.x = x.value
         it.y = y.value
         it.z = z.value
