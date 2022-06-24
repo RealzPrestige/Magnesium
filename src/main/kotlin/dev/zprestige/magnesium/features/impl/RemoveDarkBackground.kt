@@ -9,6 +9,8 @@ class RemoveDarkBackground : Feature("Remove Dark Background", "Removes the dark
 
     @Listener
     fun onBackground() = registerListener<BackgroundEvent> {
-        it.cancelled = true
+        if (nullCheck()) {
+            it.cancelled = true
+        }
     }
 }
