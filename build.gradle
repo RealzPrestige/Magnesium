@@ -3,6 +3,8 @@ plugins {
     id 'maven-publish'
     id 'org.jetbrains.kotlin.jvm' version '1.7.0-Beta'
 }
+//noinspection GroovyUnusedAssignment
+version = "1.18.2-1.0"
 
 repositories {
     maven {
@@ -16,19 +18,19 @@ repositories {
 }
 
 dependencies {
-    minecraft "com.mojang:minecraft:${project.minecraft_version}"
-    mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
-    modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
-    modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
+    minecraft "com.mojang:minecraft:1.18.2"
+    mappings "net.fabricmc:yarn:1.18.2+build.1:v2"
+    modImplementation "net.fabricmc:fabric-loader:0.13.3"
+    modImplementation "net.fabricmc.fabric-api:fabric-api:0.47.8+1.18.2"
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
-    modImplementation "io.github.ladysnake:satin:${satin_version}"
-    include "io.github.ladysnake:satin:${satin_version}"
+    modImplementation "io.github.ladysnake:satin:1.7.2"
+    include "io.github.ladysnake:satin:1.7.2"
     implementation "org.jetbrains.kotlin:kotlin-reflect:1.7.0-Beta"
 }
 
 processResources {
-    inputs.property "version", project.version
-    filesMatching("fabric.mod.json") { expand "version": project.version}
+    inputs.property "version", "1.18.2-1.0"
+    filesMatching("fabric.mod.json") { expand "version": "1.18.2-1.0"}
 }
 
 tasks.withType(JavaCompile).configureEach { it.options.release = 17 }

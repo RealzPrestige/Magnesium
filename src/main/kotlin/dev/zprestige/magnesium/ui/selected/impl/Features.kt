@@ -378,12 +378,12 @@ class Features : Selected("Features") {
 
     class Performance(private var x: Float, private var y: Float, private var width: Float, private var height: Float) {
         private val settings: ArrayList<Setting<*>> = ArrayList()
-        private val chunkLoadingInterval = SliderFloat("Chunk Loading Interval", 0.0f, 0.0f, 300.0f).tab("Chunk")
+        //private val chunkLoadingInterval = SliderFloat("Chunk Loading Interval", 0.0f, 0.0f, 300.0f).tab("Chunk")
         private var settingButtons: ArrayList<SettingButton> = ArrayList()
         private var scroll = 0.0f
 
         init {
-            settings.addAll(arrayOf(chunkLoadingInterval))
+            //settings.addAll(arrayOf(chunkLoadingInterval))
             for (it in settings) {
                 if (it is Switch) {
                     settingButtons.add(SwitchButton(it, x, y, width, 15.0f))
