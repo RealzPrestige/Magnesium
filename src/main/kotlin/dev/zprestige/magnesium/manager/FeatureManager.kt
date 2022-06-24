@@ -14,6 +14,7 @@ class FeatureManager {
     init {
         register(arrayOf(
             Armor(),
+            Blur(),
             Chat(),
             ClickGui(),
             Coordinates(),
