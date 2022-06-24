@@ -20,14 +20,13 @@ class BlurManager {
     var radius: Float = 0.0f
 
     init {
-        Main.eventBus.register(this)
         ShaderEffectRenderCallback.EVENT.register(ShaderEffectRenderCallback { deltaTick: Float ->
-            blurProgress.set(10.0f)
+            blurProgress.set(1.0f)
             blur.render(deltaTick)
         })
     }
 
-    private fun blur(radius: Float) {
+    fun blur(radius: Float) {
         blur.setUniformValue("Radius", radius)
     }
 

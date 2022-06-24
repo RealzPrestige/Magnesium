@@ -16,6 +16,6 @@ class Blur : Feature("Blur", "Blurs the background on screens") {
     }
 
     override fun onDisable() {
-        Main.blurManager.radius = 0.0f
+        Main.blurManager.blur(0.0f)
     }
 }
