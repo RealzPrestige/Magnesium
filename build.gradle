@@ -23,23 +23,17 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
     modImplementation "io.github.ladysnake:satin:${satin_version}"
     include "io.github.ladysnake:satin:${satin_version}"
-    implementation "org.jetbrains.kotlin:kotlin-reflect:1.7.0-Beta"
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.1"
 }
 
 processResources {
     inputs.property "version", project.version
-
-    filesMatching("fabric.mod.json") {
-        expand "version": project.version
-    }
+    filesMatching("fabric.mod.json") { expand "version": project.version}
 }
 
 tasks.withType(JavaCompile).configureEach { it.options.release = 17 }
 
 java.withSourcesJar()
 
-
-publishing.publications { mavenJava(MavenPublication) {from components.java} }
+publishing { publications { mavenJava(MavenPublication) { from components.java } } }
 
 compileKotlin.kotlinOptions.jvmTarget = "1.8"
