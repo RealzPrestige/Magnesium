@@ -23,6 +23,7 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
     modImplementation "io.github.ladysnake:satin:${satin_version}"
     include "io.github.ladysnake:satin:${satin_version}"
+    implementation "org.jetbrains.kotlin:kotlin-reflect:1.7.0-Beta"
 }
 
 processResources {

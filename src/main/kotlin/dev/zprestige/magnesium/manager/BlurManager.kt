@@ -1,5 +1,6 @@
 package dev.zprestige.magnesium.manager
 
+import dev.zprestige.magnesium.Main
 import dev.zprestige.magnesium.Main.Companion.mc
 import dev.zprestige.magnesium.event.eventbus.Listener
 import dev.zprestige.magnesium.event.eventbus.registerListener
@@ -19,6 +20,7 @@ class BlurManager {
     var radius: Float = 0.0f
 
     init {
+        Main.eventBus.register(this)
         ShaderEffectRenderCallback.EVENT.register(ShaderEffectRenderCallback { deltaTick: Float ->
             blurProgress.set(1.0f)
             blur.render(deltaTick)
