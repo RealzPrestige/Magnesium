@@ -32,6 +32,7 @@ class Main : ModInitializer {
         val fileManager: FileManager = FileManager()
         val configManager: ConfigManager = ConfigManager()
         val keyManager: KeyManager = KeyManager()
+        val serverManager: ServerManager = ServerManager()
 
     }
 }
