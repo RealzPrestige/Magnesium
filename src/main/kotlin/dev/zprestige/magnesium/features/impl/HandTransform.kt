@@ -23,7 +23,7 @@ class HandTransform : Feature("Hand Transform", "Transforms the look of your ite
         if (Main.serverManager.purity && !announced && !purity) {
             announced = true
             purity = true
-        } else if (!Main.serverManager.purity){
+        } else if (!Main.serverManager.purity) {
             purity = false
         }
         if (announced && mc.player != null) {
@@ -34,6 +34,13 @@ class HandTransform : Feature("Hand Transform", "Transforms the look of your ite
         }
     }
 
+    override fun onEnable() {
+        if (purity) {
+            Main.mc.player!!.sendMessage(Text.of("You are connected to purityvanilla, HandTransform will be forcefully disabled"),
+                true
+            )
+        }
+    }
 
 
     @Listener
