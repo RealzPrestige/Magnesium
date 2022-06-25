@@ -30,6 +30,7 @@ class FeatureManager {
             RemoveDarkBackground(),
             RemoveScoreboard(),
             StaticItems(),
+            OldAnimations(),
             TimeChanger(),
             TotemAnimation(),
             Zoom()
