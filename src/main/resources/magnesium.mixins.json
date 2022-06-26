@@ -5,6 +5,7 @@
   "client": [
     "MixinChatHud",
     "MixinConnectScreen",
+    "MixinDownloadingTerrainScreen",
     "MixinClientWorld",
     "MixinEndCrystalEntityRenderer",
     "MixinGameRenderer",

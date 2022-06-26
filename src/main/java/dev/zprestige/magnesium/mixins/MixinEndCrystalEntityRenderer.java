@@ -82,7 +82,7 @@ public class MixinEndCrystalEntityRenderer {
     private void modifyCore(ModelPart modelPart, MatrixStack matrices, VertexConsumer vertices, int light, int overlay) {
         CrystalEvent.Texture event = new CrystalEvent.Texture(1.0f, 1.0f, 1.0f, 1.0f);
         Main.Companion.getEventBus().invoke(event);
-        if (event.getCancelled()){
+        if (event.getCancelled()) {
             core.render(matrices, vertices, light, overlay, event.getRed(), event.getGreen(), event.getBlue(), event.getAlpha());
         } else {
             core.render(matrices, vertices, light, overlay);
@@ -94,7 +94,7 @@ public class MixinEndCrystalEntityRenderer {
     private void colorFrame1(ModelPart modelPart, MatrixStack matrices, VertexConsumer vertices, int light, int overlay) {
         CrystalEvent.Texture event = new CrystalEvent.Texture(1.0f, 1.0f, 1.0f, 1.0f);
         Main.Companion.getEventBus().invoke(event);
-        if (event.getCancelled()){
+        if (event.getCancelled()) {
             frame.render(matrices, vertices, light, overlay, event.getRed(), event.getGreen(), event.getBlue(), event.getAlpha());
         } else {
             frame.render(matrices, vertices, light, overlay);
@@ -105,7 +105,7 @@ public class MixinEndCrystalEntityRenderer {
     private void colorFrame2(ModelPart modelPart, MatrixStack matrices, VertexConsumer vertices, int light, int overlay) {
         CrystalEvent.Texture event = new CrystalEvent.Texture(1.0f, 1.0f, 1.0f, 1.0f);
         Main.Companion.getEventBus().invoke(event);
-        if (event.getCancelled()){
+        if (event.getCancelled()) {
             frame.render(matrices, vertices, light, overlay, event.getRed(), event.getGreen(), event.getBlue(), event.getAlpha());
         } else {
             frame.render(matrices, vertices, light, overlay);

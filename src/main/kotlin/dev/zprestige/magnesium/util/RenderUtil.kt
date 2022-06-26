@@ -11,6 +11,7 @@ import java.awt.Color
 class RenderUtil {
 
     companion object {
+
         fun fillCorrectly(matrices: MatrixStack, x: Float, y: Float, width: Float, height: Float, color: Color){
             fillGradient(matrices, x, y, width, height, color, color, true)
         }

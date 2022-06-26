@@ -13,7 +13,16 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public class MixinScreen {
 
     @Inject(method = "renderBackground(Lnet/minecraft/client/util/math/MatrixStack;I)V", at = @At("HEAD"), cancellable = true)
-    private void renderBackground(MatrixStack matrices, int vOffset, CallbackInfo callbackInfo){
+    private void renderBackground(MatrixStack matrices, int vOffset, CallbackInfo callbackInfo) {
+        BackgroundEvent event = new BackgroundEvent();
+        Main.Companion.getEventBus().invoke(event);
+        if (event.getCancelled()) {
+            callbackInfo.cancel();
+        }
+    }
+
+    @Inject(method = "renderBackgroundTexture", at = @At("HEAD"), cancellable = true)
+    private void renderBackgroundTexture(int vOffset, CallbackInfo callbackInfo) {
         BackgroundEvent event = new BackgroundEvent();
         Main.Companion.getEventBus().invoke(event);
         if (event.getCancelled()) {
