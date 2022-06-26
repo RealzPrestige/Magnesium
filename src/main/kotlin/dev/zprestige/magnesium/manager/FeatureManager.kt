@@ -20,6 +20,7 @@ class FeatureManager {
             Coordinates(),
             Crosshair(),
             CrystalModifier(),
+            FastTerrainLoading(),
             Fps(),
             FullBright(),
             HandTransform(),
