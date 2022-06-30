@@ -3,6 +3,7 @@ package dev.zprestige.magnesium.manager
 import dev.zprestige.magnesium.Main.Companion.mc
 import net.minecraft.client.util.math.MatrixStack
 import java.awt.Color
+import kotlin.math.ceil
 
 class FontManager {
 

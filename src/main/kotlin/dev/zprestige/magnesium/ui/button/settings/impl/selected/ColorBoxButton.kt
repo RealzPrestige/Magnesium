@@ -216,7 +216,7 @@ class ColorBoxButton(private val colorBox: ColorBox, x: Float, y: Float, width: 
             x + 182.0f,
             y + height + 50.0f,
             Color(0, 0, 0, 0),
-            Color(0, 0, 0),
+            colorBox.value,
             false
         )
         val sliderY = (50.0f * (colorBox.value.alpha / 255.0f))

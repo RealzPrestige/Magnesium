@@ -5,6 +5,7 @@ import dev.zprestige.magnesium.event.eventbus.registerListener
 import dev.zprestige.magnesium.Main
 import dev.zprestige.magnesium.event.impl.Render2DEvent
 import dev.zprestige.magnesium.features.Feature
+import dev.zprestige.magnesium.util.RenderUtil
 import net.minecraft.item.ItemStack
 import java.awt.Color
 import kotlin.math.ceil

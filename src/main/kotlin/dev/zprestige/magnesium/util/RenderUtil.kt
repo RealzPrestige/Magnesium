@@ -3,18 +3,22 @@ package dev.zprestige.magnesium.util
 import com.mojang.blaze3d.systems.RenderSystem
 import net.minecraft.client.gui.DrawableHelper
 import net.minecraft.client.render.*
+import net.minecraft.client.render.VertexFormat.DrawMode
 import net.minecraft.client.util.math.MatrixStack
 import net.minecraft.util.Identifier
 import net.minecraft.util.math.Matrix4f
 import java.awt.Color
+import kotlin.math.cos
+import kotlin.math.sin
 
 class RenderUtil {
 
     companion object {
 
-        fun fillCorrectly(matrices: MatrixStack, x: Float, y: Float, width: Float, height: Float, color: Color){
+        fun fillCorrectly(matrices: MatrixStack, x: Float, y: Float, width: Float, height: Float, color: Color) {
             fillGradient(matrices, x, y, width, height, color, color, true)
         }
+
         fun fill(matrices: MatrixStack, x: Float, y: Float, width: Float, height: Float, color: Color) {
             DrawableHelper.fill(matrices, x.toInt(), y.toInt(), width.toInt(), height.toInt(), color.rgb)
         }
