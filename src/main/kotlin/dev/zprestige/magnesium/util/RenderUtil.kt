@@ -46,7 +46,7 @@ class RenderUtil {
             RenderSystem.setShader { GameRenderer.getPositionColorShader() }
             val tessellator = Tessellator.getInstance()
             val bufferBuilder = tessellator.buffer
-            bufferBuilder.begin(VertexFormat.DrawMode.QUADS, VertexFormats.POSITION_COLOR)
+            bufferBuilder.begin(DrawMode.QUADS, VertexFormats.POSITION_COLOR)
             fillGradient(matrices.peek().positionMatrix,
                 bufferBuilder,
                 startX,
@@ -104,7 +104,7 @@ class RenderUtil {
             RenderSystem.setShader { GameRenderer.getPositionColorShader() }
             val tessellator = Tessellator.getInstance()
             val bufferBuilder = tessellator.buffer
-            bufferBuilder.begin(VertexFormat.DrawMode.QUADS, VertexFormats.POSITION_COLOR)
+            bufferBuilder.begin(DrawMode.QUADS, VertexFormats.POSITION_COLOR)
             fillGradient(matrices.peek().positionMatrix,
                 bufferBuilder,
                 startX,
@@ -184,7 +184,7 @@ class RenderUtil {
         private fun drawTexturedQuad(matrix: Matrix4f, x0: Int, x1: Int, y0: Int, y1: Int, z: Int, u0: Float, u1: Float, v0: Float, v1: Float) {
             RenderSystem.setShader { GameRenderer.getPositionTexShader() }
             val bufferBuilder = Tessellator.getInstance().buffer
-            bufferBuilder.begin(VertexFormat.DrawMode.QUADS, VertexFormats.POSITION_TEXTURE)
+            bufferBuilder.begin(DrawMode.QUADS, VertexFormats.POSITION_TEXTURE)
             bufferBuilder.vertex(matrix, x0.toFloat(), y1.toFloat(), z.toFloat()).texture(u0, v1).next()
             bufferBuilder.vertex(matrix, x1.toFloat(), y1.toFloat(), z.toFloat()).texture(u1, v1).next()
             bufferBuilder.vertex(matrix, x1.toFloat(), y0.toFloat(), z.toFloat()).texture(u1, v0).next()

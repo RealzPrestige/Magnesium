@@ -10,8 +10,8 @@ import java.awt.Color
 open class Feature(var name: String, var description: String) {
     val mc: MinecraftClient = Main.mc
     var settings: ArrayList<Setting<*>> = ArrayList()
-    var keybind: Keybind = inscribe("Keybind", -1)
-    var enabled: Switch  = inscribe("Enabled", false)
+        var keybind: Keybind = inscribe("Keybind", -1)
+        var enabled: Switch  = inscribe("Enabled", false)
     var hudComponent: HudComponent? = null
 
     open fun onEnable() {}
