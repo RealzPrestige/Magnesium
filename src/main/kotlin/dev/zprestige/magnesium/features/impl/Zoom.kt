@@ -38,7 +38,7 @@ class Zoom : Feature("Zoom", "Zooms in by fov") {
                         }
                         uncinematize()
                     }
-                    it.fov -= (mc.options.fov - zoomedFov.value) * zoom
+                    it.fov -= (mc.options.fov.value - zoomedFov.value) * zoom
                 } else if (pressed) {
                     if (cinematic.value) {
                         cinematic()

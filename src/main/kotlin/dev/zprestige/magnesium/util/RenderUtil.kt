@@ -189,8 +189,8 @@ class RenderUtil {
             bufferBuilder.vertex(matrix, x1.toFloat(), y1.toFloat(), z.toFloat()).texture(u1, v1).next()
             bufferBuilder.vertex(matrix, x1.toFloat(), y0.toFloat(), z.toFloat()).texture(u1, v0).next()
             bufferBuilder.vertex(matrix, x0.toFloat(), y0.toFloat(), z.toFloat()).texture(u0, v0).next()
-            bufferBuilder.end()
-            BufferRenderer.draw(bufferBuilder)
+            bufferBuilder.clear()
+            BufferRenderer.drawWithoutShader(bufferBuilder.end())
         }
 
     }

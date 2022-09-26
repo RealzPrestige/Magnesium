@@ -15,9 +15,9 @@ class Chat : Feature("Chat", "Modifies the looks of chat") {
 
     @Listener
     fun onRender2D() = registerListener<Render2DEvent> {
-        mc.options.chatOpacity = textOpacity.value.toDouble() / 255.0f
-        mc.options.textBackgroundOpacity = backgroundOpacity.value.toDouble() / 255.0f
-        mc.options.chatScale = scale.value.toDouble()
+        mc.options.chatOpacity.value = textOpacity.value.toDouble() / 255.0f
+        mc.options.textBackgroundOpacity.value = backgroundOpacity.value.toDouble() / 255.0f
+        mc.options.chatScale.value = scale.value.toDouble()
     }
 
     @Listener
