@@ -3,7 +3,7 @@ A fabric 1.18.2 mod aimed to improve player experience
 
 
 ## ClickGUI:
-<h2 align="center"><img src="https://cdn.discordapp.com/attachments/998006005180928001/1026518570445840415/unknown.png" height="1080"><br>VSCodeVim</h2>
+<h2 align="center"><img src="https://cdn.discordapp.com/attachments/998006005180928001/1026518570445840415/unknown.png" height="540"><br>Magnesium Client</h2>
 
 ## Gradle:
 - When importing project click `Load gradle script`
